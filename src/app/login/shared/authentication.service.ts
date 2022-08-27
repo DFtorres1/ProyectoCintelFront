@@ -12,10 +12,10 @@ export class AuthenticationService {
   constructor(private http: HttpClient) {}
 
   //private basePath = 'https://localhost:7062/api/Users';
-  private basePath = '/api/';
+  private basePath = '/api/authenticate/';
 
   login(loginObj: LoginObject): Observable<Session> {
-    return this.http.post<Session>(this.basePath + 'authenticate/login', loginObj);
+    return this.http.post<Session>(this.basePath + 'login', loginObj);
   }
 
   logout(): Observable<Boolean> {

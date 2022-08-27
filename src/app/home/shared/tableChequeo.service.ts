@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { getTable } from "../../core/models/tables.models/table.model";
+import { Chequeo } from "../../core/models/tables.models/listaDeChequeo.model";
 
 /**
  * 
@@ -16,10 +16,10 @@ export class TablesService {
     result: any;
     private basePath = 'https://localhost:7062/api/Lista/';
 
-    getListaDeChequeo(): Observable<getTable> {
+    getListaDeChequeo(): Observable<Chequeo[]> {
         this.result = JSON.stringify(this.http.get<any>(this.basePath + 'all'));
         console.log(this.result);
-        return this.http.get<getTable>(this.basePath + 'all');
+        return this.http.get<Chequeo[]>(this.basePath + 'all');
     }
 
 }

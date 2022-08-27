@@ -20,9 +20,8 @@ import {
   MatTable,
   MatTableDataSource,
 } from "@angular/material/table";
-import { getTable } from "../../core/models/tables.models/table.model";
 import { Chequeo } from "../../core/models/tables.models/listaDeChequeo.model";
-import { TablesService } from "../shared/tables.service";
+import { TablesService } from "../shared/tableChequeo.service";
 
 /**
  *
@@ -44,7 +43,7 @@ const Columns: string[] = [
   "IC",
   "NCC",
   "OFCA",
-  "MT",
+  "MTC",
   "MIC",
   "CCC-CO",
   "CE",
@@ -70,9 +69,8 @@ const Columns: string[] = [
 })
 export class TableChequeo implements OnInit {
   //Definicion de las variables a usar
-  displayedColumns: string[] = Columns;
-  dataSource: any;
-  chequeos: Chequeo[] = [];
+  displayedColumns = Columns;
+  title = "Chequeo.UI";
   listaChequeos: Chequeo[] = []
 
   //Variable para el almacenamiento local de la tabla
@@ -81,32 +79,27 @@ export class TableChequeo implements OnInit {
 
   constructor(private tableService: TablesService) {
     this.localStorageService = localStorage;
-    this.dataSource = this.loadTable();
   }
 
   ngOnInit() {
     this.tableService.getListaDeChequeo().subscribe(
       result => this.setCurrentTable(result));
 
-    this.dataSource = this.loadTable();
-
-    this.dataSource.map(factor => {
-      this.listaChequeos.push(factor);
-    });
+    this.listaChequeos = this.loadTable();  
 
     console.log(this.listaChequeos);
 
   }
 
   //Setter de la tabla en el almacenamiento
-  setCurrentTable(table: getTable): void {
+  setCurrentTable(table: Chequeo[]): void {
     this.localStorageService.setItem('currentTable', JSON.stringify(table));
   }
 
   //Loader de la tabla guardada en el almacenamiento
-  loadTable(): getTable {
+  loadTable(): Chequeo[] {
     var tableStr = this.localStorageService.getItem('currentTable');
-    return (tableStr) ? <getTable>JSON.parse(tableStr) : null;
+    return (tableStr) ? <Chequeo[]>JSON.parse(tableStr) : null;
   }
 
   create(): Chequeo {

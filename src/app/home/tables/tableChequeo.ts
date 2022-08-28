@@ -1,25 +1,6 @@
-import { DataSource } from "@angular/cdk/collections";
 import {
-  AfterContentInit,
-  Component,
-  ViewEncapsulation,
-  ContentChildren,
-  Input,
-  AfterViewInit,
-  QueryList,
-  ViewChild,
-  ContentChild,
-  OnInit,
+  Component, OnInit, ViewEncapsulation
 } from "@angular/core";
-import { MatSort } from "@angular/material/sort";
-import {
-  MatColumnDef,
-  MatHeaderRowDef,
-  MatNoDataRow,
-  MatRowDef,
-  MatTable,
-  MatTableDataSource,
-} from "@angular/material/table";
 import { Chequeo } from "../../core/models/tables.models/listaDeChequeo.model";
 import { TablesService } from "../shared/tableChequeo.service";
 
@@ -85,7 +66,7 @@ export class TableChequeo implements OnInit {
     this.tableService.getListaDeChequeo().subscribe(
       result => this.setCurrentTable(result));
 
-    this.listaChequeos = this.loadTable();  
+    this.listaChequeos = this.loadTable();
 
     console.log(this.listaChequeos);
 

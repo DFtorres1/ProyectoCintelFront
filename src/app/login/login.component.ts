@@ -1,10 +1,10 @@
-import {Component, CUSTOM_ELEMENTS_SCHEMA, NgModule, OnInit} from "@angular/core";
-import {Validators, FormGroup, FormBuilder, NgModel} from "@angular/forms";
-import {LoginObject} from "./shared/login-object.model";
-import {AuthenticationService} from "./shared/authentication.service";
-import {StorageService} from "../core/services/storage.service";
-import {Router} from "@angular/router";
-import {Session} from "../core/models/session.model";
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { Session } from "../core/models/session.model";
+import { StorageService } from "../core/services/storage.service";
+import { AuthenticationService } from "./shared/authentication.service";
+import { LoginObject } from "./shared/login-object.model";
 
 @Component({
   selector: 'login',

@@ -1,8 +1,8 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
-import { Chequeo } from "../../core/models/tables.models/listaDeChequeo.model";
 import { environment } from "../../../environments/environment";
+import { Chequeo } from "../../core/models/tables.models/listaDeChequeo.model";
 
 /**
  *

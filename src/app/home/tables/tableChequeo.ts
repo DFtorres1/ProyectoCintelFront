@@ -11,6 +11,7 @@ import {
   ContentChild,
   OnInit,
 } from "@angular/core";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { MatSort } from "@angular/material/sort";
 import {
   MatColumnDef,
@@ -71,35 +72,69 @@ export class TableChequeo implements OnInit {
   //Definicion de las variables a usar
   displayedColumns = Columns;
   title = "Chequeo.UI";
-  listaChequeos: Chequeo[] = []
+  listaChequeos: Chequeo[] = [];
 
   //Variable para el almacenamiento local de la tabla
   private localStorageService: Storage;
 
-
-  constructor(private tableService: TablesService) {
+  constructor(private tableService: TablesService, private fb: FormBuilder) {
     this.localStorageService = localStorage;
   }
 
   ngOnInit() {
-    this.tableService.getListaDeChequeo().subscribe(
-      result => this.setCurrentTable(result));
+    this.tableService
+      .getListaDeChequeo()
+      .subscribe((result) => this.setCurrentTable(result));
 
-    this.listaChequeos = this.loadTable();  
+    this.listaChequeos = this.loadTable();
 
     console.log(this.listaChequeos);
+  }
 
+  initiateForm(): FormGroup {
+    return this.fb.group({
+      settled: [""],
+      entryDate: [""],
+      userType: [""],
+      brand: [""],
+      model: [""],
+      tac: [""],
+      tacquery: [""],
+      label: [""],
+      fcc: [""],
+      anatel: [""],
+      ic: [""],
+      ncc: [""],
+      ofca: [""],
+      mtc: [""],
+      mic: [""],
+      cccCo: [""],
+      ce: [""],
+      others: [""],
+      mhz703: [""],
+      mhz824: [""],
+      mhz1710: [""],
+      mhz1850: [""],
+      mhz2500: [""],
+      sar: [""],
+      certifyingEntity: [""],
+      certifierNumber: [""],
+      laboratory: [""],
+      answer: [""],
+      complements: [""],
+      isEditable: [true],
+    });
   }
 
   //Setter de la tabla en el almacenamiento
   setCurrentTable(table: Chequeo[]): void {
-    this.localStorageService.setItem('currentTable', JSON.stringify(table));
+    this.localStorageService.setItem("currentTable", JSON.stringify(table));
   }
 
   //Loader de la tabla guardada en el almacenamiento
   loadTable(): Chequeo[] {
-    var tableStr = this.localStorageService.getItem('currentTable');
-    return (tableStr) ? <Chequeo[]>JSON.parse(tableStr) : null;
+    var tableStr = this.localStorageService.getItem("currentTable");
+    return tableStr ? <Chequeo[]>JSON.parse(tableStr) : null;
   }
 
   create(): Chequeo {
@@ -109,5 +144,4 @@ export class TableChequeo implements OnInit {
   delete(): Chequeo {
     return;
   }
-
 }

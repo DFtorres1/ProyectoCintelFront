@@ -14,8 +14,8 @@ import { Chequeo } from "../../core/models/tables.models/listaDeChequeo.model";
 export class TablesService {
   constructor(private http: HttpClient) {}
   result: any;
-  // private basePath = `${environment.apiUrl}/Lista/all`;
-  private basePath = `${environment.apiUrl}/Lista`;
+  private basePath = `${environment.apiUrl}/Lista/all`;
+  // private basePath = `${environment.apiUrl}/Lista`;
 
   getListaDeChequeo(): Observable<Chequeo[]> {
     const request = this.http.get<Chequeo[]>(this.basePath);

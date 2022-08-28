@@ -1,16 +1,7 @@
 import {
   Component, OnInit, ViewEncapsulation
 } from "@angular/core";
-import { FormBuilder, FormGroup } from "@angular/forms";
-import { MatSort } from "@angular/material/sort";
-import {
-  MatColumnDef,
-  MatHeaderRowDef,
-  MatNoDataRow,
-  MatRowDef,
-  MatTable,
-  MatTableDataSource,
-} from "@angular/material/table";
+import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
 import { Chequeo } from "../../core/models/tables.models/listaDeChequeo.model";
 import { TablesService } from "../shared/tableChequeo.service";
 
@@ -20,49 +11,169 @@ import { TablesService } from "../shared/tableChequeo.service";
  *
  */
 
-const Columns: string[] = [
-  "radicado",
-  "fechaEntrada",
-  "tipoUsu",
-  "marca",
-  "modelo",
-  "numTAC",
-  "consultaTAC",
-  "etiqueta",
-  "FCC",
-  "ANATEL",
-  "IC",
-  "NCC",
-  "OFCA",
-  "MTC",
-  "MIC",
-  "CCC-CO",
-  "CE",
-  "OTROS",
-  "703MHz",
-  "824MHz",
-  "1710MHz",
-  "1850MHz",
-  "2500MHz",
-  "SAR",
-  "enteCert",
-  "numCert",
-  "laboratorio",
-  "respuesta",
-  "complementos",
+const Columns = [
+  {
+    name: 'Radicado',
+    formControl: 'settled',
+    type: 'text'
+  },
+  {
+    name: 'Fecha de entrada',
+    formControl: 'entryDate',
+    type: 'text'
+  },
+  {
+    name: 'Tipo de usuario',
+    formControl: 'userType',
+    type: 'text'
+  },
+  {
+    name: 'Marca',
+    formControl: 'brand',
+    type: 'text'
+  },
+  {
+    name: 'Modelo',
+    formControl: 'model',
+    type: 'text'
+  },
+  {
+    name: 'TAC',
+    formControl: 'tac',
+    type: 'text'
+  },
+  {
+    name: 'Consulta TAC',
+    formControl: 'tacquery',
+    type: 'text'
+  },
+  {
+    name: 'Etiqueta',
+    formControl: 'label',
+    type: 'text'
+  },
+  {
+    name: 'FCC',
+    formControl: 'fcc',
+    type: 'text'
+  },
+  {
+    name: 'ANATEL',
+    formControl: 'anatel',
+    type: 'text'
+  },
+  {
+    name: 'IC',
+    formControl: 'ic',
+    type: 'text'
+  },
+  {
+    name: 'NCC',
+    formControl: 'ncc',
+    type: 'text'
+  },
+  {
+    name: 'OFCA',
+    formControl: 'ofca',
+    type: 'text'
+  },
+  {
+    name: 'MTC',
+    formControl: 'mtc',
+    type: 'text'
+  },
+  {
+    name: 'MIC',
+    formControl: 'mic',
+    type: 'text'
+  },
+  {
+    name: 'CCC-CO',
+    formControl: 'cccCo',
+    type: 'text'
+  },
+  {
+    name: 'CE',
+    formControl: 'ce',
+    type: 'text'
+  },
+  {
+    name: 'OTROS',
+    formControl: 'others',
+    type: 'text'
+  },
+  {
+    name: '703MHz',
+    formControl: 'mhz703',
+    type: 'text'
+  },
+  {
+    name: '824MHz',
+    formControl: 'mhz824',
+    type: 'text'
+  },
+  {
+    name: '1710MHz',
+    formControl: 'mhz1710',
+    type: 'text'
+  },
+  {
+    name: '1850MHz',
+    formControl: 'mhz1850',
+    type: 'text'
+  },
+  {
+    name: '2500MHz',
+    formControl: 'mhz2500',
+    type: 'text'
+  },
+  {
+    name: 'SAR',
+    formControl: 'sar',
+    type: 'text'
+  },
+  {
+    name: 'Ente certificador',
+    formControl: 'certifyingEntity',
+    type: 'text'
+  },
+  {
+    name: 'Numero certificado',
+    formControl: 'certifierNumber',
+    type: 'text'
+  },
+  {
+    name: 'Laboratorio',
+    formControl: 'laboratory',
+    type: 'text'
+  },
+  {
+    name: 'Respuesta',
+    formControl: 'answer',
+    type: 'text'
+  },
+  {
+    name: 'Complementos',
+    formControl: 'complements',
+    type: 'text'
+  }
 ];
 
 @Component({
   selector: "tableChequeo",
   styleUrls: ["../assets/tables.component.css"],
-  templateUrl: "tableChequeo.html",
+  templateUrl: "tableTemplate.component.html",
   encapsulation: ViewEncapsulation.None,
 })
 export class TableChequeo implements OnInit {
   //Definicion de las variables a usar
-  displayedColumns = Columns;
+  formFields = Columns;
   title = "Chequeo.UI";
+  mode: boolean;
+  touchedRows: any;
   listaChequeos: Chequeo[] = [];
+  chequeoTable: FormGroup;
+  control: FormArray;
 
   //Variable para el almacenamiento local de la tabla
   private localStorageService: Storage;
@@ -71,14 +182,24 @@ export class TableChequeo implements OnInit {
     this.localStorageService = localStorage;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.tableService
       .getListaDeChequeo()
       .subscribe((result) => this.setCurrentTable(result));
 
     this.listaChequeos = this.loadTable();
 
+    this.touchedRows = [];
+    this.chequeoTable = this.fb.group({
+      tableRows: this.fb.array([])
+    });
+    this.addRow();
+
     console.log(this.listaChequeos);
+  }
+
+  ngAfterOnInit() {
+    this.control = this.chequeoTable.get('tableRows') as FormArray;
   }
 
   initiateForm(): FormGroup {
@@ -127,11 +248,44 @@ export class TableChequeo implements OnInit {
     return tableStr ? <Chequeo[]>JSON.parse(tableStr) : null;
   }
 
-  create(): Chequeo {
-    return;
+  addRowDetails() {
+    const chequeoDetail = this.initiateForm();
+    this.formFields.forEach(field =>
+      chequeoDetail.addControl(field.formControl, this.fb.control([]))
+    );
+    return chequeoDetail;
   }
 
-  delete(): Chequeo {
-    return;
+  addRow() {
+    const control = this.chequeoTable.get('tableRows') as FormArray;
+    control.push(this.addRowDetails());
+  }
+
+  deleteRow(index: number) {
+    const control = this.chequeoTable.get('tableRows') as FormArray;
+    control.removeAt(index);
+  }
+
+  editRow(group: FormGroup) {
+    group.get('isEditable').setValue(true);
+  }
+
+  doneRow(group: FormGroup) {
+    group.get('isEditable').setValue(false);
+  }
+
+  submitForm() {
+    const control = this.chequeoTable.get('tableRows') as FormArray;
+    this.touchedRows = control.controls.filter(row => row.touched).map(row => row.value);
+    console.log(this.touchedRows);
+  }
+
+  toggleTheme() {
+    this.mode = !this.mode;
+  }
+
+  get getFormControls() {
+    const control = this.chequeoTable.get('tableRows') as FormArray;
+    return control;
   }
 }

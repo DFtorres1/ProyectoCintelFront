@@ -168,7 +168,6 @@ const Columns = [
 export class TableChequeo implements OnInit {
   //Definicion de las variables a usar
   formFields = Columns;
-  title = "Chequeo.UI";
   mode: boolean;
   touchedRows: any;
   listaChequeos: Chequeo[] = [];

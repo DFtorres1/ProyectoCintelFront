@@ -1,5 +1,5 @@
 <section class="main-container mat-elevation-z8" tabindex="0">
-  <form [formGroup]="chequeoTable">
+  <form [formGroup]="templateTable">
     <table class="table table-border" [ngClass]="{'table-dark': mode}">
       <thead>
         <tr>
@@ -40,7 +40,7 @@
     </table>
     <div class="action-container">
       <button mat-raised-button type="submit" (click)="addRow()">Add row</button>
-      <button mat-raised-button [disabled]="chequeoTable.invalid" type="submit" (click)="submitForm()">Submit</button>
+      <button mat-raised-button [disabled]="templateTable.invalid" type="submit" (click)="submitForm()">Submit</button>
     </div>
   </form>
 </section>

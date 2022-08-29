@@ -171,7 +171,7 @@ export class TableChequeo implements OnInit {
   mode: boolean;
   touchedRows: any;
   listaChequeos: Chequeo[] = [];
-  chequeoTable: FormGroup;
+  templateTable: FormGroup;
   control: FormArray;
 
   //Variable para el almacenamiento local de la tabla
@@ -189,7 +189,7 @@ export class TableChequeo implements OnInit {
     this.listaChequeos = this.loadTable();
 
     this.touchedRows = [];
-    this.chequeoTable = this.fb.group({
+    this.templateTable = this.fb.group({
       tableRows: this.fb.array([])
     });
     this.addRow();
@@ -198,7 +198,7 @@ export class TableChequeo implements OnInit {
   }
 
   ngAfterOnInit() {
-    this.control = this.chequeoTable.get('tableRows') as FormArray;
+    this.control = this.templateTable.get('tableRows') as FormArray;
   }
 
   initiateForm(): FormGroup {
@@ -256,12 +256,12 @@ export class TableChequeo implements OnInit {
   }
 
   addRow() {
-    const control = this.chequeoTable.get('tableRows') as FormArray;
+    const control = this.templateTable.get('tableRows') as FormArray;
     control.push(this.addRowDetails());
   }
 
   deleteRow(index: number) {
-    const control = this.chequeoTable.get('tableRows') as FormArray;
+    const control = this.templateTable.get('tableRows') as FormArray;
     control.removeAt(index);
   }
 
@@ -274,7 +274,7 @@ export class TableChequeo implements OnInit {
   }
 
   submitForm() {
-    const control = this.chequeoTable.get('tableRows') as FormArray;
+    const control = this.templateTable.get('tableRows') as FormArray;
     this.touchedRows = control.controls.filter(row => row.touched).map(row => row.value);
     console.log(this.touchedRows);
   }
@@ -284,7 +284,7 @@ export class TableChequeo implements OnInit {
   }
 
   get getFormControls() {
-    const control = this.chequeoTable.get('tableRows') as FormArray;
+    const control = this.templateTable.get('tableRows') as FormArray;
     return control;
   }
 }

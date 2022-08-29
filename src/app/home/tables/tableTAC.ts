@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
-import { Consulta } from "src/app/core/models/tables.models/consulta.model";
+import { Consulta } from "../../core/models/tables.models/consulta.model";
 import { TablesService } from "../shared/tableConsultaTAC.service";
 
 /**
  *
- *    TABLA DEL CONSOLIDADO GENERAL
+ *    TABLA DE LA CONSULTA DE TAC
  *
  */
 
@@ -88,18 +88,18 @@ const Columns = [
 ];
 
 @Component({
-  selector: "tableConsulta",
+  selector: "tableTAC",
   styleUrls: ["../assets/tables.component.css"],
   templateUrl: "tableTemplate.component.html",
   encapsulation: ViewEncapsulation.None,
 })
-export class TableConsulta implements OnInit {
+export class TableTAC implements OnInit {
   //Definicion de las variables a usar
   formFields = Columns;
   mode: boolean;
   touchedRows: any;
   listaConsulta: Consulta[] = [];
-  consultaTable: FormGroup;
+  templateTable: FormGroup;
   control: FormArray;
 
   //Variable para el almacenamiento local de la tabla
@@ -117,7 +117,7 @@ export class TableConsulta implements OnInit {
     this.listaConsulta = this.loadTable();
 
     this.touchedRows = [];
-    this.consultaTable = this.fb.group({
+    this.templateTable = this.fb.group({
       tableRows: this.fb.array([]),
     });
     this.addRow();
@@ -126,7 +126,7 @@ export class TableConsulta implements OnInit {
   }
 
   ngAfterOnInit() {
-    this.control = this.consultaTable.get("tableRows") as FormArray;
+    this.control = this.templateTable.get("tableRows") as FormArray;
   }
 
   initiateForm(): FormGroup {
@@ -146,6 +146,7 @@ export class TableConsulta implements OnInit {
       answer: [""],
       applicantEMail: [""],
       consultationDay: [""],
+      isEditable: [true]
     });
   }
 
@@ -169,12 +170,12 @@ export class TableConsulta implements OnInit {
   }
 
   addRow() {
-    const control = this.consultaTable.get("tableRows") as FormArray;
+    const control = this.templateTable.get("tableRows") as FormArray;
     control.push(this.addRowDetails());
   }
 
   deleteRow(index: number) {
-    const control = this.consultaTable.get("tableRows") as FormArray;
+    const control = this.templateTable.get("tableRows") as FormArray;
     control.removeAt(index);
   }
 
@@ -187,7 +188,7 @@ export class TableConsulta implements OnInit {
   }
 
   submitForm() {
-    const control = this.consultaTable.get("tableRows") as FormArray;
+    const control = this.templateTable.get("tableRows") as FormArray;
     this.touchedRows = control.controls
       .filter((row) => row.touched)
       .map((row) => row.value);
@@ -199,7 +200,7 @@ export class TableConsulta implements OnInit {
   }
 
   get getFormControls() {
-    const control = this.consultaTable.get("tableRows") as FormArray;
+    const control = this.templateTable.get("tableRows") as FormArray;
     return control;
   }
 }

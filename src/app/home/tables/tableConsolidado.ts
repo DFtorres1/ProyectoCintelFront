@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
-import { Consolidado } from "src/app/core/models/tables.models/consolidado.model";
+import { Consolidado } from "../../core/models/tables.models/consolidado.model";
 import { TablesService } from "../shared/tableConsolidado.service";
 
 /**
@@ -129,7 +129,7 @@ export class TableConsolidado implements OnInit {
   mode: boolean;
   touchedRows: any;
   listaConsolidados: Consolidado[] = [];
-  consolidadoTable: FormGroup;
+  templateTable: FormGroup;
   control: FormArray;
 
   //Variable para el almacenamiento local de la tabla
@@ -147,7 +147,7 @@ export class TableConsolidado implements OnInit {
     this.listaConsolidados = this.loadTable();
 
     this.touchedRows = [];
-    this.consolidadoTable = this.fb.group({
+    this.templateTable = this.fb.group({
       tableRows: this.fb.array([]),
     });
     this.addRow();
@@ -156,7 +156,7 @@ export class TableConsolidado implements OnInit {
   }
 
   ngAfterOnInit() {
-    this.control = this.consolidadoTable.get("tableRows") as FormArray;
+    this.control = this.templateTable.get("tableRows") as FormArray;
   }
 
   initiateForm(): FormGroup {
@@ -182,6 +182,7 @@ export class TableConsolidado implements OnInit {
       reviewObs: [""],
       aditionalObs: [""],
       complements: [""],
+      isEditable: [true]
     });
   }
 
@@ -205,12 +206,12 @@ export class TableConsolidado implements OnInit {
   }
 
   addRow() {
-    const control = this.consolidadoTable.get("tableRows") as FormArray;
+    const control = this.templateTable.get("tableRows") as FormArray;
     control.push(this.addRowDetails());
   }
 
   deleteRow(index: number) {
-    const control = this.consolidadoTable.get("tableRows") as FormArray;
+    const control = this.templateTable.get("tableRows") as FormArray;
     control.removeAt(index);
   }
 
@@ -223,7 +224,7 @@ export class TableConsolidado implements OnInit {
   }
 
   submitForm() {
-    const control = this.consolidadoTable.get("tableRows") as FormArray;
+    const control = this.templateTable.get("tableRows") as FormArray;
     this.touchedRows = control.controls
       .filter((row) => row.touched)
       .map((row) => row.value);
@@ -235,7 +236,7 @@ export class TableConsolidado implements OnInit {
   }
 
   get getFormControls() {
-    const control = this.consolidadoTable.get("tableRows") as FormArray;
+    const control = this.templateTable.get("tableRows") as FormArray;
     return control;
   }
 }

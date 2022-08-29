@@ -20,9 +20,9 @@ import { MatTableModule } from '@angular/material/table';
 import { environment } from "../environments/environment";
 import { ServiceWorkerModule } from "@angular/service-worker";
 import { TablePlaceholder } from "./home/tables/tablePlaceholder";
-import { TableChequeo   } from "./home/tables/tableChequeo";
-import { TableConsolidado } from "./home/tables/tableConsolidado";
-import { TableTAC } from "./home/tables/tableTAC";
+import { TableChequeo   } from "./home/tables/tableChequeo.component";
+import { TableConsolidado } from "./home/tables/tableConsolidado.component";
+import { TableTAC } from "./home/tables/tableTAC.component";
 import { TableRegistro } from "./home/tables/tableRegistro.component";
 
 const modules = [

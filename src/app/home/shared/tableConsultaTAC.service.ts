@@ -22,4 +22,21 @@ export class TablesService {
     const request = this.http.get<Consulta[]>(this.basePath);
     return request;
   }
+  
+  postConsultaDeTAC(consulta: Consulta): Observable<Consulta[]> {
+    const result = this.http.post<Consulta[]>(this.basePath + "create/", consulta);
+    return result;
+  }
+
+  deleteConsultaDeTAC(id: number): any {
+    const request = this.http.delete<Consulta[]>(this.basePath + `delete/${id}`);
+    return request;
+  }
+
+  putConsultaDeTAC(consulta: Consulta): Observable<Consulta[]> {
+    const request = this.http.put<Consulta[]>(this.basePath + "edit/", consulta);
+    return request;
+  }
+
+
 }

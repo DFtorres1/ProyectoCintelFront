@@ -1,6 +1,4 @@
-import {
-  Component, OnInit, ViewEncapsulation
-} from "@angular/core";
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
 import { Chequeo } from "../../core/models/tables.models/listaDeChequeo.model";
 import { TablesService } from "../shared/tableChequeo.service";
@@ -13,150 +11,150 @@ import { TablesService } from "../shared/tableChequeo.service";
 
 const Columns = [
   {
-    name: 'Radicado',
-    formControl: 'settled',
-    type: 'text'
+    name: "Radicado",
+    formControl: "settled",
+    type: "text",
   },
   {
-    name: 'Fecha de entrada',
-    formControl: 'entryDate',
-    type: 'text'
+    name: "Fecha de entrada",
+    formControl: "entryDate",
+    type: "text",
   },
   {
-    name: 'Tipo de usuario',
-    formControl: 'userType',
-    type: 'text'
+    name: "Tipo de usuario",
+    formControl: "userType",
+    type: "text",
   },
   {
-    name: 'Marca',
-    formControl: 'brand',
-    type: 'text'
+    name: "Marca",
+    formControl: "brand",
+    type: "text",
   },
   {
-    name: 'Modelo',
-    formControl: 'model',
-    type: 'text'
+    name: "Modelo",
+    formControl: "model",
+    type: "text",
   },
   {
-    name: 'TAC',
-    formControl: 'tac',
-    type: 'text'
+    name: "TAC",
+    formControl: "tac",
+    type: "text",
   },
   {
-    name: 'Consulta TAC',
-    formControl: 'tacquery',
-    type: 'text'
+    name: "Consulta TAC",
+    formControl: "tacquery",
+    type: "text",
   },
   {
-    name: 'Etiqueta',
-    formControl: 'label',
-    type: 'text'
+    name: "Etiqueta",
+    formControl: "label",
+    type: "text",
   },
   {
-    name: 'FCC',
-    formControl: 'fcc',
-    type: 'text'
+    name: "FCC",
+    formControl: "fcc",
+    type: "text",
   },
   {
-    name: 'ANATEL',
-    formControl: 'anatel',
-    type: 'text'
+    name: "ANATEL",
+    formControl: "anatel",
+    type: "text",
   },
   {
-    name: 'IC',
-    formControl: 'ic',
-    type: 'text'
+    name: "IC",
+    formControl: "ic",
+    type: "text",
   },
   {
-    name: 'NCC',
-    formControl: 'ncc',
-    type: 'text'
+    name: "NCC",
+    formControl: "ncc",
+    type: "text",
   },
   {
-    name: 'OFCA',
-    formControl: 'ofca',
-    type: 'text'
+    name: "OFCA",
+    formControl: "ofca",
+    type: "text",
   },
   {
-    name: 'MTC',
-    formControl: 'mtc',
-    type: 'text'
+    name: "MTC",
+    formControl: "mtc",
+    type: "text",
   },
   {
-    name: 'MIC',
-    formControl: 'mic',
-    type: 'text'
+    name: "MIC",
+    formControl: "mic",
+    type: "text",
   },
   {
-    name: 'CCC-CO',
-    formControl: 'cccCo',
-    type: 'text'
+    name: "CCC-CO",
+    formControl: "cccCo",
+    type: "text",
   },
   {
-    name: 'CE',
-    formControl: 'ce',
-    type: 'text'
+    name: "CE",
+    formControl: "ce",
+    type: "text",
   },
   {
-    name: 'OTROS',
-    formControl: 'others',
-    type: 'text'
+    name: "OTROS",
+    formControl: "others",
+    type: "text",
   },
   {
-    name: '703MHz',
-    formControl: 'mhz703',
-    type: 'text'
+    name: "703MHz",
+    formControl: "mhz700",
+    type: "text",
   },
   {
-    name: '824MHz',
-    formControl: 'mhz824',
-    type: 'text'
+    name: "824MHz",
+    formControl: "mhz850",
+    type: "text",
   },
   {
-    name: '1710MHz',
-    formControl: 'mhz1710',
-    type: 'text'
+    name: "1710MHz",
+    formControl: "mhz1700",
+    type: "text",
   },
   {
-    name: '1850MHz',
-    formControl: 'mhz1850',
-    type: 'text'
+    name: "1850MHz",
+    formControl: "mhz1900",
+    type: "text",
   },
   {
-    name: '2500MHz',
-    formControl: 'mhz2500',
-    type: 'text'
+    name: "2500MHz",
+    formControl: "mhz2500",
+    type: "text",
   },
   {
-    name: 'SAR',
-    formControl: 'sar',
-    type: 'text'
+    name: "SAR",
+    formControl: "sar",
+    type: "text",
   },
   {
-    name: 'Ente certificador',
-    formControl: 'certifyingEntity',
-    type: 'text'
+    name: "Ente certificador",
+    formControl: "certifyingEntity",
+    type: "text",
   },
   {
-    name: 'Numero certificado',
-    formControl: 'certifierNumber',
-    type: 'text'
+    name: "Numero certificado",
+    formControl: "certifierNumber",
+    type: "text",
   },
   {
-    name: 'Laboratorio',
-    formControl: 'laboratory',
-    type: 'text'
+    name: "Laboratorio",
+    formControl: "laboratory",
+    type: "text",
   },
   {
-    name: 'Respuesta',
-    formControl: 'answer',
-    type: 'text'
+    name: "Respuesta",
+    formControl: "answer",
+    type: "text",
   },
   {
-    name: 'Complementos',
-    formControl: 'complements',
-    type: 'text'
-  }
+    name: "Complementos",
+    formControl: "complements",
+    type: "text",
+  },
 ];
 
 @Component({
@@ -170,6 +168,7 @@ export class TableChequeo implements OnInit {
   formFields = Columns;
   mode: boolean;
   touchedRows: any;
+  chequeos: Chequeo;
   listaChequeos: Chequeo[] = [];
   templateTable: FormGroup;
   control: FormArray;
@@ -190,92 +189,218 @@ export class TableChequeo implements OnInit {
 
     this.touchedRows = [];
     this.templateTable = this.fb.group({
-      tableRows: this.fb.array([])
+      tableRows: this.fb.array([]),
     });
-    this.addRow();
 
-    console.log(this.listaChequeos);
+    this.loadTable().map((result) => this.addRow(result));
+
+    this.addRow();
   }
 
   ngAfterOnInit() {
-    this.control = this.templateTable.get('tableRows') as FormArray;
+    this.control = this.templateTable.get("tableRows") as FormArray;
   }
 
-  initiateForm(): FormGroup {
-    return this.fb.group({
-      settled: [""],
-      entryDate: [""],
-      userType: [""],
-      brand: [""],
-      model: [""],
-      tac: [""],
-      tacquery: [""],
-      label: [""],
-      fcc: [""],
-      anatel: [""],
-      ic: [""],
-      ncc: [""],
-      ofca: [""],
-      mtc: [""],
-      mic: [""],
-      cccCo: [""],
-      ce: [""],
-      others: [""],
-      mhz703: [""],
-      mhz824: [""],
-      mhz1710: [""],
-      mhz1850: [""],
-      mhz2500: [""],
-      sar: [""],
-      certifyingEntity: [""],
-      certifierNumber: [""],
-      laboratory: [""],
-      answer: [""],
-      complements: [""],
-      isEditable: [true],
-    });
+  initiateForm(chequeo?: Chequeo): FormGroup {
+    if (chequeo != undefined) {
+      return this.fb.group({
+        idLc: [chequeo.idLc],
+        settled: [chequeo.settled],
+        entryDate: [chequeo.entryDate],
+        userType: [chequeo.userType],
+        brand: [chequeo.brand],
+        model: [chequeo.model],
+        tac: [chequeo.tac],
+        tacquery: [chequeo.tacquery],
+        label: [chequeo.label],
+        fcc: [chequeo.fcc],
+        anatel: [chequeo.anatel],
+        ic: [chequeo.ic],
+        ncc: [chequeo.ncc],
+        ofca: [chequeo.ofca],
+        mtc: [chequeo.mtc],
+        mic: [chequeo.mic],
+        cccCo: [chequeo.cccCo],
+        ce: [chequeo.ce],
+        others: [chequeo.others],
+        mhz700: [chequeo.mhz700],
+        mhz850: [chequeo.mhz850],
+        mhz1700: [chequeo.mhz1700],
+        mhz1900: [chequeo.mhz1900],
+        mhz2500: [chequeo.mhz2500],
+        sar: [chequeo.sar],
+        certifyingEntity: [chequeo.certifyingEntity],
+        certifierNumber: [chequeo.certifierNumber],
+        laboratory: [chequeo.laboratory],
+        answer: [chequeo.answer],
+        complements: [chequeo.complements],
+        isEditable: [false],
+        new: [false],
+      });
+    } else {
+      return this.fb.group({
+        idLc: [""],
+        settled: [""],
+        entryDate: [""],
+        userType: [""],
+        brand: [""],
+        model: [""],
+        tac: [""],
+        tacquery: [""],
+        label: [""],
+        fcc: [""],
+        anatel: [""],
+        ic: [""],
+        ncc: [""],
+        ofca: [""],
+        mtc: [""],
+        mic: [""],
+        cccCo: [""],
+        ce: [""],
+        others: [""],
+        mhz700: [""],
+        mhz850: [""],
+        mhz1700: [""],
+        mhz1900: [""],
+        mhz2500: [""],
+        sar: [""],
+        certifyingEntity: [""],
+        certifierNumber: [""],
+        laboratory: [""],
+        answer: [""],
+        complements: [""],
+        isEditable: [true],
+        new: [true],
+      });
+    }
   }
 
-  //Setter de la tabla en el almacenamiento
+  // Setter de la tabla en el almacenamiento
   setCurrentTable(table: Chequeo[]): void {
     this.localStorageService.setItem("currentTable", JSON.stringify(table));
   }
 
-  //Loader de la tabla guardada en el almacenamiento
+  // Loader de la tabla guardada en el almacenamiento
   loadTable(): Chequeo[] {
     var tableStr = this.localStorageService.getItem("currentTable");
     return tableStr ? <Chequeo[]>JSON.parse(tableStr) : null;
   }
 
-  addRowDetails() {
-    const chequeoDetail = this.initiateForm();
-    this.formFields.forEach(field =>
+  addRowDetails(chequeo?: Chequeo) {
+    const chequeoDetail = this.initiateForm(chequeo);
+
+    this.formFields.forEach((field) =>
       chequeoDetail.addControl(field.formControl, this.fb.control([]))
     );
     return chequeoDetail;
   }
 
-  addRow() {
-    const control = this.templateTable.get('tableRows') as FormArray;
-    control.push(this.addRowDetails());
+  addRow(chequeo?: Chequeo) {
+    const control = this.templateTable.get("tableRows") as FormArray;
+    control.push(this.addRowDetails(chequeo));
   }
 
-  deleteRow(index: number) {
-    const control = this.templateTable.get('tableRows') as FormArray;
+  deleteRow(index: number, group: FormGroup) {
+    const control = this.templateTable.get("tableRows") as FormArray;
     control.removeAt(index);
+
+    this.tableService
+      .deleteListaDeChequeo(group.get("idLc").value)
+      .subscribe((check: Chequeo[]) => this.setCurrentTable(check));
   }
 
   editRow(group: FormGroup) {
-    group.get('isEditable').setValue(true);
+    group.get("isEditable").setValue(true);
+    group.get("new").setValue(false);
   }
 
   doneRow(group: FormGroup) {
-    group.get('isEditable').setValue(false);
+    group.get("isEditable").setValue(false);
+
+    if (group.get("new").value) {
+      this.chequeos = {
+        settled: group.get("settled").value,
+        entryDate: group.get("entryDate").value,
+        userType: group.get("userType").value,
+        brand: group.get("brand").value,
+        model: group.get("model").value,
+        tac: group.get("tac").value,
+        tacquery: group.get("tacquery").value,
+        label: group.get("label").value,
+        fcc: group.get("fcc").value === ("true" || "1"),
+        anatel: group.get("anatel").value === ("true" || "1"),
+        ic: group.get("ic").value === ("true" || "1"),
+        ncc: group.get("ncc").value === ("true" || "1"),
+        ofca: group.get("ofca").value === ("true" || "1"),
+        mtc: group.get("mtc").value === ("true" || "1"),
+        mic: group.get("mic").value === ("true" || "1"),
+        cccCo: group.get("cccCo").value === ("true" || "1"),
+        ce: group.get("ce").value === ("true" || "1"),
+        others: group.get("others").value === ("true" || "1"),
+        mhz700: group.get("mhz700").value === ("true" || "1"),
+        mhz850: group.get("mhz850").value === ("true" || "1"),
+        mhz1700: group.get("mhz1700").value === ("true" || "1"),
+        mhz1900: group.get("mhz1900").value === ("true" || "1"),
+        mhz2500: group.get("mhz2500").value === ("true" || "1"),
+        sar: group.get("sar").value === ("true" || "1"),
+        certifyingEntity: group.get("certifyingEntity").value,
+        certifierNumber: group.get("certifierNumber").value,
+        laboratory: group.get("laboratory").value,
+        answer: group.get("answer").value,
+        complements: group.get("complements").value,
+      };
+
+      this.tableService
+        .postListaDeChequeo(this.chequeos)
+        .subscribe((check: Chequeo[]) => {
+          this.setCurrentTable(check);
+          group.get("idLc").setValue(check[-1].idLc);
+        });
+    } else {
+      this.chequeos = {
+        idLc: group.get("idLc").value,
+        settled: group.get("settled").value,
+        entryDate: group.get("entryDate").value,
+        userType: group.get("userType").value,
+        brand: group.get("brand").value,
+        model: group.get("model").value,
+        tac: group.get("tac").value,
+        tacquery: group.get("tacquery").value,
+        label: group.get("label").value,
+        fcc: group.get("fcc").value === ("true" || "1"),
+        anatel: group.get("anatel").value === ("true" || "1"),
+        ic: group.get("ic").value === ("true" || "1"),
+        ncc: group.get("ncc").value === ("true" || "1"),
+        ofca: group.get("ofca").value === ("true" || "1"),
+        mtc: group.get("mtc").value === ("true" || "1"),
+        mic: group.get("mic").value === ("true" || "1"),
+        cccCo: group.get("cccCo").value === ("true" || "1"),
+        ce: group.get("ce").value === ("true" || "1"),
+        others: group.get("others").value === ("true" || "1"),
+        mhz700: group.get("mhz700").value === ("true" || "1"),
+        mhz850: group.get("mhz850").value === ("true" || "1"),
+        mhz1700: group.get("mhz1700").value === ("true" || "1"),
+        mhz1900: group.get("mhz1900").value === ("true" || "1"),
+        mhz2500: group.get("mhz2500").value === ("true" || "1"),
+        sar: group.get("sar").value === ("true" || "1"),
+        certifyingEntity: group.get("certifyingEntity").value,
+        certifierNumber: group.get("certifierNumber").value,
+        laboratory: group.get("laboratory").value,
+        answer: group.get("answer").value,
+        complements: group.get("complements").value,
+      };
+
+      this.tableService
+        .putListaDeChequeo(this.chequeos)
+        .subscribe((check: Chequeo[]) => this.setCurrentTable(check));
+    }
   }
 
   submitForm() {
-    const control = this.templateTable.get('tableRows') as FormArray;
-    this.touchedRows = control.controls.filter(row => row.touched).map(row => row.value);
+    const control = this.templateTable.get("tableRows") as FormArray;
+    this.touchedRows = control.controls
+      .filter((row) => row.touched)
+      .map((row) => row.value);
     console.log(this.touchedRows);
   }
 
@@ -284,7 +409,7 @@ export class TableChequeo implements OnInit {
   }
 
   get getFormControls() {
-    const control = this.templateTable.get('tableRows') as FormArray;
+    const control = this.templateTable.get("tableRows") as FormArray;
     return control;
   }
 }

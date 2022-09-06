@@ -19,7 +19,6 @@ import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from '@angular/material/table';
 import { environment } from "../environments/environment";
 import { ServiceWorkerModule } from "@angular/service-worker";
-import { TablePlaceholder } from "./home/tables/tablePlaceholder";
 import { TableChequeo   } from "./home/tables/tableChequeo.component";
 import { TableConsolidado } from "./home/tables/tableConsolidado.component";
 import { TableTAC } from "./home/tables/tableTAC.component";
@@ -47,7 +46,6 @@ const modules = [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    TablePlaceholder,
     TableChequeo,
     TableConsolidado,
     TableTAC,

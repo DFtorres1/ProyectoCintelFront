@@ -14,11 +14,27 @@ import { Consolidado } from "../../core/models/tables.models/consolidado.model";
 export class TablesService {
   constructor(private http: HttpClient) {}
   result: any;
-  private basePath = `${environment.apiUrl}/Consolidado/all`;
+  private basePath = `${environment.apiUrl}/Consolidado/`;
   // private basePath = `${environment.apiUrl}/Lista`;
 
   getConsolidadoGeneral(): Observable<Consolidado[]> {
-    const request = this.http.get<Consolidado[]>(this.basePath);
+    const request = this.http.get<Consolidado[]>(this.basePath + "all");
     return request;
   }
+  
+  postConsolidadoGeneral(consolidado: Consolidado): Observable<Consolidado[]> {
+    const result = this.http.post<Consolidado[]>(this.basePath + "create/", consolidado);
+    return result;
+  }
+
+  deleteConsolidadoGeneral(id: number): any {
+    const request = this.http.delete<Consolidado[]>(this.basePath + `delete/${id}`);
+    return request;
+  }
+
+  putConsolidadoGeneral(consolidado: Consolidado): Observable<Consolidado[]> {
+    const request = this.http.put<Consolidado[]>(this.basePath + "edit/", consolidado);
+    return request;
+  }
+
 }

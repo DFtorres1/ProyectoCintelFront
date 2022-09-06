@@ -128,6 +128,7 @@ export class TableConsolidado implements OnInit {
   formFields = Columns;
   mode: boolean;
   touchedRows: any;
+  consolidados: Consolidado;
   listaConsolidados: Consolidado[] = [];
   templateTable: FormGroup;
   control: FormArray;
@@ -150,40 +151,72 @@ export class TableConsolidado implements OnInit {
     this.templateTable = this.fb.group({
       tableRows: this.fb.array([]),
     });
-    this.addRow();
 
-    console.log(this.listaConsolidados);
+    this.loadTable().map((result) => this.addRow(result));
+
+    this.addRow();
   }
 
   ngAfterOnInit() {
     this.control = this.templateTable.get("tableRows") as FormArray;
   }
 
-  initiateForm(): FormGroup {
-    return this.fb.group({
-      entrySettlement: [""],
-      crcentryDate: [""],
-      responsible: [""],
-      deadlineDate: [""],
-      crcexpiration: [""],
-      cintelExpiration: [""],
-      cintelEntryDate: [""],
-      responsibleEntryDate: [""],
-      responsibleExitDate: [""],
-      businessDays: [""],
-      status: [""],
-      theme: [""],
-      classification: [""],
-      settlementAssign: [""],
-      reviewer: [""],
-      reviewDate: [""],
-      cintelExitDate: [""],
-      responsibleObs: [""],
-      reviewObs: [""],
-      aditionalObs: [""],
-      complements: [""],
-      isEditable: [true]
-    });
+  initiateForm(consolidado?: Consolidado): FormGroup {
+    if (consolidado != undefined) {
+      return this.fb.group({
+        idCg: [consolidado.idCg],
+        entrySettlement: [consolidado.entrySettlement],
+        crcentryDate: [consolidado.crcentryDate],
+        responsible: [consolidado.responsible],
+        deadlineDate: [consolidado.deadlineDate],
+        crcexpiration: [consolidado.crcexpiration],
+        cintelExpiration: [consolidado.cintelExpiration],
+        cintelEntryDate: [consolidado.cintelEntryDate],
+        responsibleEntryDate: [consolidado.responsibleEntryDate],
+        responsibleExitDate: [consolidado.responsibleExitDate],
+        businessDays: [consolidado.businessDays],
+        status: [consolidado.status],
+        theme: [consolidado.theme],
+        classification: [consolidado.classification],
+        settlementAssign: [consolidado.settlementAssign],
+        reviewer: [consolidado.reviewer],
+        reviewDate: [consolidado.reviewDate],
+        cintelExitDate: [consolidado.cintelExitDate],
+        responsibleObs: [consolidado.responsibleObs],
+        reviewObs: [consolidado.reviewObs],
+        aditionalObs: [consolidado.aditionalObs],
+        complements: [consolidado.complements],
+        isEditable: [false],
+        new: [false],
+      });
+    } else {
+      return this.fb.group({
+        idCg: [""],
+        entrySettlement: [""],
+        crcentryDate: [""],
+        responsible: [""],
+        deadlineDate: [""],
+        crcexpiration: [""],
+        cintelExpiration: [""],
+        cintelEntryDate: [""],
+        responsibleEntryDate: [""],
+        responsibleExitDate: [""],
+        businessDays: [""],
+        status: [""],
+        theme: [""],
+        classification: [""],
+        settlementAssign: [""],
+        reviewer: [""],
+        reviewDate: [""],
+        cintelExitDate: [""],
+        responsibleObs: [""],
+        reviewObs: [""],
+        aditionalObs: [""],
+        complements: [""],
+        isEditable: [true],
+        new: [true],
+      });
+    }
   }
 
   //Setter de la tabla en el almacenamiento
@@ -197,30 +230,101 @@ export class TableConsolidado implements OnInit {
     return tableStr ? <Consolidado[]>JSON.parse(tableStr) : null;
   }
 
-  addRowDetails() {
-    const consolidadoDetail = this.initiateForm();
+  addRowDetails(consolidado?: Consolidado) {
+    const consolidadoDetail = this.initiateForm(consolidado);
+
     this.formFields.forEach((field) =>
       consolidadoDetail.addControl(field.formControl, this.fb.control([]))
     );
     return consolidadoDetail;
   }
 
-  addRow() {
+  addRow(consolidado?: Consolidado) {
     const control = this.templateTable.get("tableRows") as FormArray;
-    control.push(this.addRowDetails());
+    control.push(this.addRowDetails(consolidado));
   }
 
-  deleteRow(index: number) {
+  deleteRow(index: number, group: FormGroup) {
     const control = this.templateTable.get("tableRows") as FormArray;
     control.removeAt(index);
+
+    this.tableService
+      .deleteConsolidadoGeneral(group.get("idCg").value)
+      .subscribe((consolidado: Consolidado[]) =>
+        this.setCurrentTable(consolidado)
+      );
   }
 
   editRow(group: FormGroup) {
     group.get("isEditable").setValue(true);
+    group.get("new").setValue(false);
   }
 
   doneRow(group: FormGroup) {
     group.get("isEditable").setValue(false);
+
+    if (group.get("new").value) {
+      this.consolidados = {
+        entrySettlement: group.get("entrySettlement").value,
+        crcentryDate: group.get("crcentryDate").value,
+        responsible: group.get("responsible").value,
+        deadlineDate: group.get("deadlineDate").value,
+        crcexpiration: group.get("crcexpiration").value,
+        cintelExpiration: group.get("cintelExpiration").value,
+        cintelEntryDate: group.get("cintelEntryDate").value,
+        responsibleEntryDate: group.get("responsibleEntryDate").value,
+        responsibleExitDate: group.get("responsibleExitDate").value,
+        businessDays: group.get("businessDays").value,
+        status: group.get("status").value,
+        theme: group.get("theme").value,
+        classification: group.get("classification").value,
+        settlementAssign: group.get("settlementAssign").value,
+        reviewer: group.get("reviewer").value,
+        reviewDate: group.get("reviewDate").value,
+        cintelExitDate: group.get("cintelExitDate").value,
+        responsibleObs: group.get("responsibleObs").value,
+        reviewObs: group.get("reviewObs").value,
+        aditionalObs: group.get("aditionalObs").value,
+        complements: group.get("complements").value,
+      };
+
+      this.tableService
+        .postConsolidadoGeneral(this.consolidados)
+        .subscribe((conslidado: Consolidado[]) => {
+          this.setCurrentTable(conslidado);
+          group.get("idLc").setValue(conslidado[-1].idCg);
+        });
+    } else {
+      this.consolidados = {
+        entrySettlement: group.get("entrySettlement").value,
+        crcentryDate: group.get("crcentryDate").value,
+        responsible: group.get("responsible").value,
+        deadlineDate: group.get("deadlineDate").value,
+        crcexpiration: group.get("crcexpiration").value,
+        cintelExpiration: group.get("cintelExpiration").value,
+        cintelEntryDate: group.get("cintelEntryDate").value,
+        responsibleEntryDate: group.get("responsibleEntryDate").value,
+        responsibleExitDate: group.get("responsibleExitDate").value,
+        businessDays: group.get("businessDays").value,
+        status: group.get("status").value,
+        theme: group.get("theme").value,
+        classification: group.get("classification").value,
+        settlementAssign: group.get("settlementAssign").value,
+        reviewer: group.get("reviewer").value,
+        reviewDate: group.get("reviewDate").value,
+        cintelExitDate: group.get("cintelExitDate").value,
+        responsibleObs: group.get("responsibleObs").value,
+        reviewObs: group.get("reviewObs").value,
+        aditionalObs: group.get("aditionalObs").value,
+        complements: group.get("complements").value,
+      };
+
+      this.tableService
+        .putConsolidadoGeneral(this.consolidados)
+        .subscribe((consolidado: Consolidado[]) =>
+          this.setCurrentTable(consolidado)
+        );
+    }
   }
 
   submitForm() {

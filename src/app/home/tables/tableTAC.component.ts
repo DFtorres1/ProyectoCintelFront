@@ -98,6 +98,7 @@ export class TableTAC implements OnInit {
   formFields = Columns;
   mode: boolean;
   touchedRows: any;
+  consultas: Consulta;
   listaConsulta: Consulta[] = [];
   templateTable: FormGroup;
   control: FormArray;
@@ -120,71 +121,153 @@ export class TableTAC implements OnInit {
     this.templateTable = this.fb.group({
       tableRows: this.fb.array([]),
     });
-    this.addRow();
 
-    console.log(this.listaConsulta);
+    this.loadTable().map((result) => this.addRow(result));
+
+    this.addRow();
   }
 
   ngAfterOnInit() {
     this.control = this.templateTable.get("tableRows") as FormArray;
   }
 
-  initiateForm(): FormGroup {
-    return this.fb.group({
-      queryDate: [""],
-      responsible: [""],
-      tac: [""],
-      brand: [""],
-      model: [""],
-      gsmabrand: [""],
-      gsmamodel: [""],
-      crctacapp: [""],
-      brand_C: [""],
-      model_C: [""],
-      manufacturer: [""],
-      question: [""],
-      answer: [""],
-      applicantEMail: [""],
-      consultationDay: [""],
-      isEditable: [true]
-    });
+  initiateForm(consulta?: Consulta): FormGroup {
+    if (consulta != undefined) {
+      return this.fb.group({
+        idCt: [consulta.idCt],
+        queryDate: [consulta.queryDate],
+        responsible: [consulta.responsible],
+        tac: [consulta.tac],
+        brand: [consulta.brand],
+        model: [consulta.model],
+        gsmabrand: [consulta.gsmabrand],
+        gsmamodel: [consulta.gsmamodel],
+        crctacapp: [consulta.crctacapp],
+        brand_C: [consulta.brand_C],
+        model_C: [consulta.model_C],
+        manufacturer: [consulta.manufacturer],
+        question: [consulta.question],
+        answer: [consulta.answer],
+        applicantEMail: [consulta.applicantEMail],
+        consultationDay: [consulta.consultationDay],
+        isEditable: [false],
+        new: [false],
+      });
+    } else {
+      return this.fb.group({
+        idCt: [""],
+        queryDate: [""],
+        responsible: [""],
+        tac: [""],
+        brand: [""],
+        model: [""],
+        gsmabrand: [""],
+        gsmamodel: [""],
+        crctacapp: [""],
+        brand_C: [""],
+        model_C: [""],
+        manufacturer: [""],
+        question: [""],
+        answer: [""],
+        applicantEMail: [""],
+        consultationDay: [""],
+        isEditable: [true],
+        new: [true],
+      });
+    }
   }
 
-  //Setter de la tabla en el almacenamiento
+  // Setter de la tabla en el almacenamiento
   setCurrentTable(table: Consulta[]): void {
     this.localStorageService.setItem("consultaTable", JSON.stringify(table));
   }
 
-  //Loader de la tabla guardada en el almacenamiento
+  // Loader de la tabla guardada en el almacenamiento
   loadTable(): Consulta[] {
     var tableStr = this.localStorageService.getItem("consultaTable");
     return tableStr ? <Consulta[]>JSON.parse(tableStr) : null;
   }
 
-  addRowDetails() {
-    const consultaDetail = this.initiateForm();
+  addRowDetails(consulta?: Consulta) {
+    const consultaDetail = this.initiateForm(consulta);
+
     this.formFields.forEach((field) =>
       consultaDetail.addControl(field.formControl, this.fb.control([]))
     );
     return consultaDetail;
   }
 
-  addRow() {
+  addRow(consulta?: Consulta) {
     const control = this.templateTable.get("tableRows") as FormArray;
-    control.push(this.addRowDetails());
+    control.push(this.addRowDetails(consulta));
   }
 
-  deleteRow(index: number) {
+  deleteRow(index: number, group: FormGroup) {
     const control = this.templateTable.get("tableRows") as FormArray;
     control.removeAt(index);
+
+    this.tableService
+      .deleteConsultaDeTAC(group.get("idCt").value)
+      .subscribe((consulta: Consulta[]) => this.setCurrentTable(consulta));
   }
 
   editRow(group: FormGroup) {
     group.get("isEditable").setValue(true);
+    group.get("new").setValue(false);
   }
 
   doneRow(group: FormGroup) {
     group.get("isEditable").setValue(false);
+
+    if (group.get("new").value) {
+      this.consultas = {
+        queryDate: group.get("queryDate").value,
+        responsible: group.get("responsible").value,
+        tac: group.get("tac").value,
+        brand: group.get("brand").value,
+        model: group.get("model").value,
+        gsmabrand: group.get("gsmabrand").value,
+        gsmamodel: group.get("gsmamodel").value,
+        crctacapp: group.get("crctacapp").value,
+        brand_C: group.get("brand_C").value,
+        model_C: group.get("model_C").value,
+        manufacturer: group.get("manufacturer").value,
+        question: group.get("question").value,
+        answer: group.get("answer").value,
+        applicantEMail: group.get("applicantEMail").value,
+        consultationDay: group.get("consultationDay").value,
+      };
+
+      this.tableService
+        .postConsultaDeTAC(this.consultas)
+        .subscribe((consulta: Consulta[]) => {
+          this.setCurrentTable(consulta);
+          group.get("idLc").setValue(consulta[-1].idCt);
+        });
+    } else {
+      this.consultas = {
+        idCt: group.get("idCt").value,
+        queryDate: group.get("queryDate").value,
+        responsible: group.get("responsible").value,
+        tac: group.get("tac").value,
+        brand: group.get("brand").value,
+        model: group.get("model").value,
+        gsmabrand: group.get("gsmabrand").value,
+        gsmamodel: group.get("gsmamodel").value,
+        crctacapp: group.get("crctacapp").value,
+        brand_C: group.get("brand_C").value,
+        model_C: group.get("model_C").value,
+        manufacturer: group.get("manufacturer").value,
+        question: group.get("question").value,
+        answer: group.get("answer").value,
+        applicantEMail: group.get("applicantEMail").value,
+        consultationDay: group.get("consultationDay").value,
+      };
+
+      this.tableService
+        .putConsultaDeTAC(this.consultas)
+        .subscribe((consulta: Consulta[]) => this.setCurrentTable(consulta));
+    }
   }
 
   submitForm() {

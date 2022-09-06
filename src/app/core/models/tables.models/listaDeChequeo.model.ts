@@ -1,4 +1,5 @@
 export class Chequeo {
+  public idLc?: number;
   public settled: string;
   public entryDate: Date; //Date
   public userType: string;
@@ -17,10 +18,10 @@ export class Chequeo {
   public cccCo: boolean;
   public ce: boolean;
   public others: boolean;
-  public mhz703: boolean;
-  public mhz824: boolean;
-  public mhz1710: boolean;
-  public mhz1850: boolean;
+  public mhz700: boolean;
+  public mhz850: boolean;
+  public mhz1700: boolean;
+  public mhz1900: boolean;
   public mhz2500: boolean;
   public sar: boolean;
   public certifyingEntity: string;

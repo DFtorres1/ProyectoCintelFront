@@ -14,11 +14,27 @@ import { environment } from "../../../environments/environment";
 export class TablesService {
   constructor(private http: HttpClient) {}
   result: any;
-  private basePath = `${environment.apiUrl}/Users/all`;
+  private basePath = `${environment.apiUrl}/Users/`;
   // private basePath = `${environment.apiUrl}/Lista`;
 
   getUsuarios(): Observable<Users[]> {
-    const request = this.http.get<Users[]>(this.basePath);
+    const request = this.http.get<Users[]>(this.basePath + "all/");
     return request;
   }
+  
+  postUsuarios(user: Users): Observable<Users[]> {
+    const result = this.http.post<Users[]>(this.basePath + "create/", user);
+    return result;
+  }
+
+  deleteUsuarios(id: number): any {
+    const request = this.http.delete<Users[]>(this.basePath + `delete/${id}`);
+    return request;
+  }
+
+  putUsuarios(user: Users): Observable<Users[]> {
+    const request = this.http.put<Users[]>(this.basePath + "edit/", user);
+    return request;
+  }
+
 }

@@ -1,5 +1,6 @@
 export class Consulta {
-  public queryDate: string;
+  public idCt?: number;
+  public queryDate: Date;
   public responsible: string;
   public tac: string;
   public brand: string;
@@ -13,5 +14,5 @@ export class Consulta {
   public question: string;
   public answer: string;
   public applicantEMail: string;
-  public consultationDay: string;
+  public consultationDay: Date;
 }

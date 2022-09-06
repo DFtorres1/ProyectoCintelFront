@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
+import { Consulta } from "../../core/models/tables.models/consulta.model";
 import { Chequeo } from "../../core/models/tables.models/listaDeChequeo.model";
-import { TablesService } from "../shared/tableChequeo.service";
+import { TablesServiceChequeo } from "../shared/tableChequeo.service";
+import { TablesServiceTAC } from "../shared/tableConsultaTAC.service";
 
 /**
  *
@@ -169,6 +171,7 @@ export class TableChequeo implements OnInit {
   mode: boolean;
   touchedRows: any;
   chequeos: Chequeo;
+  consultas: Consulta;
   listaChequeos: Chequeo[] = [];
   templateTable: FormGroup;
   control: FormArray;
@@ -176,7 +179,7 @@ export class TableChequeo implements OnInit {
   //Variable para el almacenamiento local de la tabla
   private localStorageService: Storage;
 
-  constructor(private tableService: TablesService, private fb: FormBuilder) {
+  constructor(private tableService: TablesServiceChequeo, private tableServiceTAC: TablesServiceTAC, private fb: FormBuilder) {
     this.localStorageService = localStorage;
   }
 
@@ -234,6 +237,7 @@ export class TableChequeo implements OnInit {
         laboratory: [chequeo.laboratory],
         answer: [chequeo.answer],
         complements: [chequeo.complements],
+        agent: [chequeo.agent],
         isEditable: [false],
         new: [false],
       });
@@ -350,11 +354,32 @@ export class TableChequeo implements OnInit {
         complements: group.get("complements").value,
       };
 
+      this.consultas = {
+        queryDate: null,
+        responsible: null,
+        tac: group.get("tac").value,
+        brand: group.get("brand").value,
+        model: group.get("model").value,
+        gsmabrand: null,
+        gsmamodel: null,
+        crctacapp: null,
+        brand_C: null,
+        model_C: null,
+        manufacturer: null,
+        question: null,
+        answer: null,
+        applicantEMail: null,
+        consultationDay: null,
+      }
+
+      this.tableServiceTAC.postConsultaDeTAC(this.consultas);
+
       this.tableService
         .postListaDeChequeo(this.chequeos)
         .subscribe((check: Chequeo[]) => {
           this.setCurrentTable(check);
-          group.get("idLc").setValue(check[-1].idLc);
+          var x = check.length-1;
+          group.get("idLc").setValue(check[x].idLc);
         });
     } else {
       this.chequeos = {

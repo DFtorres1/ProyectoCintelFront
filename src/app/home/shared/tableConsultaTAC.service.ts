@@ -3,7 +3,6 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Consulta } from "../../core/models/tables.models/consulta.model";
 import { environment } from "../../../environments/environment";
-import { Consolidado } from "../../core/models/tables.models/consolidado.model";
 
 /**
  *
@@ -12,7 +11,7 @@ import { Consolidado } from "../../core/models/tables.models/consolidado.model";
  */
 
 @Injectable({ providedIn: "root" })
-export class TablesService {
+export class TablesServiceTAC {
   constructor(private http: HttpClient) {}
   result: any;
   private basePath = `${environment.apiUrl}/Consulta/all`;

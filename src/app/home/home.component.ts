@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { StorageService } from "../core/services/storage.service";
 import { User } from "../core/models/user.model";
 import { AuthenticationService } from "../login/shared/authentication.service";
+import { Users } from "../core/models/tables.models/users.model";
 
 @Component({
   selector: "home",
@@ -9,7 +10,7 @@ import { AuthenticationService } from "../login/shared/authentication.service";
   styleUrls: ["./assets/home.component.css"],
 })
 export class HomeComponent implements OnInit {
-  user: User;
+  user: Users;
   access: Boolean = false;
 
   chequeo: Boolean = false;
@@ -29,7 +30,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.user = this.storageService.getCurrentUser();
 
-    if (this.user.accessLevel >= 2) {
+    if (this.user.role == "Administrador") {
       this.access = true;
     }
   }

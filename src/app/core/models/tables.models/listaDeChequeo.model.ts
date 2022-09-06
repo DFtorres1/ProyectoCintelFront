@@ -29,4 +29,5 @@ export class Chequeo {
   public laboratory: string;
   public answer: string;
   public complements: string;
+  public agent?: string;
 }

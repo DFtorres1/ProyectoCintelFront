@@ -1,6 +1,6 @@
-import {User} from "./user.model";
+import { Users } from "./tables.models/users.model";
 
 export class Session {
   public token: string;
-  public user: User;
+  public user: Users;
 }

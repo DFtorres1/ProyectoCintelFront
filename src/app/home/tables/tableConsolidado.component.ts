@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
+import { Chequeo } from "../../core/models/tables.models/listaDeChequeo.model";
 import { Consolidado } from "../../core/models/tables.models/consolidado.model";
 import { TablesService } from "../shared/tableConsolidado.service";
+import { TablesServiceChequeo } from "../shared/tableChequeo.service";
 
 /**
  *
@@ -129,6 +131,7 @@ export class TableConsolidado implements OnInit {
   mode: boolean;
   touchedRows: any;
   consolidados: Consolidado;
+  chequeos: Chequeo;
   listaConsolidados: Consolidado[] = [];
   templateTable: FormGroup;
   control: FormArray;
@@ -136,7 +139,7 @@ export class TableConsolidado implements OnInit {
   //Variable para el almacenamiento local de la tabla
   private localStorageService: Storage;
 
-  constructor(private tableService: TablesService, private fb: FormBuilder) {
+  constructor(private tableService: TablesService, private tableChequeoService: TablesServiceChequeo, private fb: FormBuilder) {
     this.localStorageService = localStorage;
   }
 
@@ -288,14 +291,50 @@ export class TableConsolidado implements OnInit {
         complements: group.get("complements").value,
       };
 
+      this.chequeos = {
+        settled: group.get("settled").value,
+        entryDate: null,
+        userType: null,
+        brand: null,
+        model: null,
+        tac: null,
+        tacquery: null,
+        label: null,
+        fcc: null,
+        anatel: null,
+        ic: null,
+        ncc: null,
+        ofca: null,
+        mtc: null,
+        mic: null,
+        cccCo: null,
+        ce: null,
+        others: null,
+        mhz700: null,
+        mhz850: null,
+        mhz1700: null,
+        mhz1900: null,
+        mhz2500: null,
+        sar: null,
+        certifyingEntity: null,
+        certifierNumber: null,
+        laboratory: null,
+        answer: null,
+        complements: null,
+        agent: group.get("responsible").value
+      }
+
+      this.tableChequeoService.postListaDeChequeo(this.chequeos);
+
       this.tableService
         .postConsolidadoGeneral(this.consolidados)
-        .subscribe((conslidado: Consolidado[]) => {
-          this.setCurrentTable(conslidado);
-          group.get("idLc").setValue(conslidado[-1].idCg);
+        .subscribe((consolidado: Consolidado[]) => {
+          this.setCurrentTable(consolidado);
+          group.get("idCg").setValue(consolidado[-1].idCg);
         });
     } else {
       this.consolidados = {
+        idCg: group.get("idCg").value,
         entrySettlement: group.get("entrySettlement").value,
         crcentryDate: group.get("crcentryDate").value,
         responsible: group.get("responsible").value,

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
 import { Consulta } from "../../core/models/tables.models/consulta.model";
-import { TablesService } from "../shared/tableConsultaTAC.service";
+import { TablesServiceTAC } from "../shared/tableConsultaTAC.service";
 
 /**
  *
@@ -106,7 +106,7 @@ export class TableTAC implements OnInit {
   //Variable para el almacenamiento local de la tabla
   private localStorageService: Storage;
 
-  constructor(private tableService: TablesService, private fb: FormBuilder) {
+  constructor(private tableService: TablesServiceTAC, private fb: FormBuilder) {
     this.localStorageService = localStorage;
   }
 

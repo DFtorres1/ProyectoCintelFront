@@ -12,7 +12,7 @@ import { Chequeo } from "../../core/models/tables.models/listaDeChequeo.model";
  */
 
 @Injectable({ providedIn: "root" })
-export class TablesService {
+export class TablesServiceChequeo {
   constructor(private http: HttpClient) {}
   result: any;
   private basePath = `${environment.apiUrl}/Lista/`;

@@ -1,5 +1,5 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
+import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 
@@ -12,14 +12,17 @@ import { LoginComponent } from "./login/login.component";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
+import { MatIconModule } from "@angular/material/icon";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatListModule } from "@angular/material/list";
 import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from '@angular/material/table';
 import { environment } from "../environments/environment";
 import { ServiceWorkerModule } from "@angular/service-worker";
-import { TablePlaceholder } from "./home/tables/tablePlaceholder";
-import { TableChequeo   } from "./home/tables/tableChequeo";
+import { TableChequeo   } from "./home/tables/tableChequeo.component";
+import { TableConsolidado } from "./home/tables/tableConsolidado.component";
+import { TableTAC } from "./home/tables/tableTAC.component";
+import { TableRegistro } from "./home/tables/tableRegistro.component";
 
 const modules = [
   BrowserModule,
@@ -29,6 +32,7 @@ const modules = [
   CoreModule,
   ReactiveFormsModule,
   MatTableModule,
+  MatIconModule,
   MatInputModule,
   MatButtonModule,
   MatCardModule,
@@ -42,8 +46,10 @@ const modules = [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    TablePlaceholder,
     TableChequeo,
+    TableConsolidado,
+    TableTAC,
+    TableRegistro
   ],
   imports: [
     ...modules,

@@ -1,16 +1,96 @@
-/* ESTILOS DE TABLA */
+/* ESTILOS DE TABLA */ 
+
+.main-container {
+  height: 650px;
+  width: 1200px;
+  max-width: 100%;
+  overflow: auto;
+}
 
 table {
-  width: 100%;
+  width: 3000px;
+}
+
+td.mat-column-large {
+  width: 150px;
+  padding-left: 10px;
+  padding-right: 8px;
+}
+
+td.mat-column-mid {
+  padding-left: 10px;
+  width: 100px;
+  padding-right: 8px;
+}
+
+th.mat-column-position, td.mat-column-position {
+  padding-left: 8px;
+}
+
+.mat-table-sticky-border-elem-right {
+  border-left: 1px solid #e0e0e0;
+}
+
+.mat-table-sticky-border-elem-left {
+  border-right: 1px solid #e0e0e0;
 }
 
 button {
   margin: 0 8px 8px 0;
 }
 
-.tableDiv {
-  margin: 5px;
-  margin-top: 5px;
-  margin-bottom: 5.rem;
-  padding: 5px;
+header {
+  background-color: #333;
+  color: #fff;
+  overflow: auto;
+  position: sticky;
+  top:0;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+mat-icon {
+  cursor: pointer;
+}
+
+.action-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.table {
+  padding: 20px;
+}
+
+.table tbody tr td,
+.table thead th,
+.table thead {
+  border-left: 1px solid #dee2e6;
+  border-right: 1px solid #dee2e6;
+}
+
+.output {
+  padding: 20px;
+}
+
+.delete {
+  color: red  ;
+}
+
+.done {
+  color: green;
+}
+
+.edit {
+  color: yellow;
+}
+span.ui-column-resizer {
+  width: 100%;
+  height: 100%;
+  cursor: col-resize;
+  padding: 30px;
+
 }

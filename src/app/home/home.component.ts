@@ -9,15 +9,13 @@ import { AuthenticationService } from "../login/shared/authentication.service";
   styleUrls: ["./assets/home.component.css"],
 })
 export class HomeComponent implements OnInit {
-  public user: User;
-  public access: Boolean = false;
+  user: User;
+  access: Boolean = false;
 
-  public placeholder: Boolean = false;
-
-  public chequeo: Boolean = false;
-  public TAC: Boolean = false;
-  public Consolidado: Boolean = false;
-  public registro: Boolean = false;
+  chequeo: Boolean = false;
+  tac: Boolean = false;
+  consolidado: Boolean = false;
+  registro: Boolean = false;
 
   cssUrl: string;
 
@@ -36,7 +34,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  public logout(): void {
+  logout(): void {
     this.authenticationService.logout().subscribe((response) => {
       if (response) {
         this.storageService.logout();
@@ -44,11 +42,32 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  public showChequeo() {
-    return (this.chequeo = true), (this.placeholder = false);
+  showChequeo() {
+    (this.chequeo = true),
+    (this.consolidado = false),
+    (this.tac = false),
+    (this.registro = false);
   }
 
-  public showPlaceholder() {
-    return (this.chequeo = false), (this.placeholder = true);
+  showConsolidado() {
+    (this.chequeo = false),
+    (this.consolidado = true),
+    (this.tac = false),
+    (this.registro = false);
   }
+  
+  showTAC() {
+    (this.chequeo = false),
+    (this.consolidado = false),
+    (this.tac = true),
+    (this.registro = false);
+  }
+  
+  showRegistro() {
+    (this.chequeo = false),
+    (this.consolidado = false),
+    (this.tac = false),
+    (this.registro = true);
+  }
+
 }

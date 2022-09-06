@@ -22,19 +22,19 @@
                 </mat-nav-list>
 
                 <mat-nav-list>
-                  <button mat-raised-button type="button" (click)="showPlaceholder()">
+                  <button mat-raised-button type="button" (click)="showTAC()">
                     Consulta de TAC
                   </button>
                 </mat-nav-list>
 
                 <mat-nav-list>
-                  <button mat-raised-button type="button" (click)="logout()">
+                  <button mat-raised-button type="button" (click)="showConsolidado()">
                     Consolidado
                   </button>
                 </mat-nav-list>
 
                 <mat-nav-list *ngIf="access">
-                  <button mat-raised-button type="button" (click)="logout()">
+                  <button mat-raised-button type="button" (click)="showRegistro()">
                     Registrar usuarios
                   </button>
                 </mat-nav-list>
@@ -53,12 +53,20 @@
       </mat-nav-list>
     </mat-sidenav>
 
-    <mat-sidenav-content *ngIf="placeholder == true">
-      <tablePlaceholder></tablePlaceholder>
-    </mat-sidenav-content>
-
     <mat-sidenav-content *ngIf="chequeo == true">
       <tableChequeo></tableChequeo>
+    </mat-sidenav-content>
+    
+    <mat-sidenav-content *ngIf="tac == true">
+      <tableTAC></tableTAC>
+    </mat-sidenav-content>
+    
+    <mat-sidenav-content *ngIf="consolidado == true">
+      <tableConsolidado></tableConsolidado>
+    </mat-sidenav-content>
+    
+    <mat-sidenav-content *ngIf="registro == true">
+      <tableRegistro></tableRegistro>
     </mat-sidenav-content>
 
   </mat-sidenav-container>

@@ -1,7 +1,8 @@
 
 import {Injectable} from "@angular/core";
 import { Router } from '@angular/router';
-import {Session} from "../models/session.model";
+import { Session } from "../models/session.model";
+import { Users } from "../models/tables.models/users.model";
 import {User} from "../models/user.model";
 
 @Injectable()
@@ -34,7 +35,7 @@ export class StorageService {
     this.currentSession = null;
   }
 
-  getCurrentUser(): User {
+  getCurrentUser(): Users {
     var session: Session = this.getCurrentSession();
     return (session && session.user) ? session.user : null;
   };

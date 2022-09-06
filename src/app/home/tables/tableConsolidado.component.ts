@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
-import { Chequeo } from "src/app/core/models/tables.models/listaDeChequeo.model";
+import { Chequeo } from "../../core/models/tables.models/listaDeChequeo.model";
 import { Consolidado } from "../../core/models/tables.models/consolidado.model";
 import { TablesService } from "../shared/tableConsolidado.service";
 import { TablesServiceChequeo } from "../shared/tableChequeo.service";

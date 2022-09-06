@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
-import { Consulta } from "src/app/core/models/tables.models/consulta.model";
+import { Consulta } from "../../core/models/tables.models/consulta.model";
 import { Chequeo } from "../../core/models/tables.models/listaDeChequeo.model";
 import { TablesServiceChequeo } from "../shared/tableChequeo.service";
 import { TablesServiceTAC } from "../shared/tableConsultaTAC.service";
@@ -378,7 +378,8 @@ export class TableChequeo implements OnInit {
         .postListaDeChequeo(this.chequeos)
         .subscribe((check: Chequeo[]) => {
           this.setCurrentTable(check);
-          group.get("idLc").setValue(check[-1].idLc);
+          var x = check.length-1;
+          group.get("idLc").setValue(check[x].idLc);
         });
     } else {
       this.chequeos = {

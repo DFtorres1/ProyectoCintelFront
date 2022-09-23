@@ -372,14 +372,14 @@ export class TableChequeo implements OnInit {
         consultationDay: null,
       }
 
-      this.tableServiceTAC.postConsultaDeTAC(this.consultas);
+      this.tableServiceTAC.postConsultaDeTAC(this.consultas).subscribe();
 
       this.tableService
         .postListaDeChequeo(this.chequeos)
         .subscribe((check: Chequeo[]) => {
           this.setCurrentTable(check);
-          var x = check.length-1;
-          group.get("idLc").setValue(check[x].idLc);
+          this.ngOnInit;
+          window.location.reload();
         });
     } else {
       this.chequeos = {
@@ -414,6 +414,8 @@ export class TableChequeo implements OnInit {
         answer: group.get("answer").value,
         complements: group.get("complements").value,
       };
+
+      window.location.reload();
 
       this.tableService
         .putListaDeChequeo(this.chequeos)

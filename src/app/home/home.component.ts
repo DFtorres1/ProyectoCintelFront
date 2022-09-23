@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { StorageService } from "../core/services/storage.service";
-import { User } from "../core/models/user.model";
 import { AuthenticationService } from "../login/shared/authentication.service";
 import { Users } from "../core/models/tables.models/users.model";
 
@@ -30,7 +29,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.user = this.storageService.getCurrentUser();
 
-    if (this.user.role == "Administrador") {
+    if (this.user.role == "administrador") {
       this.access = true;
     }
   }

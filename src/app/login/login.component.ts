@@ -8,8 +8,10 @@ import { LoginObject } from "./shared/login-object.model";
 
 @Component({
   selector: 'login',
-  templateUrl: 'login.component.html'
+  templateUrl: 'login.component.html',
+  styleUrls: ['login.component.css'],
 })
+
 
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;

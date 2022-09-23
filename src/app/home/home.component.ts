@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { StorageService } from "../core/services/storage.service";
 import { AuthenticationService } from "../login/shared/authentication.service";
 import { Users } from "../core/models/tables.models/users.model";
+import { ImgSrcDirective } from "@angular/flex-layout";
 
 @Component({
   selector: "home",
@@ -11,12 +12,10 @@ import { Users } from "../core/models/tables.models/users.model";
 export class HomeComponent implements OnInit {
   user: Users;
   access: Boolean = false;
-
   chequeo: Boolean = false;
   tac: Boolean = false;
   consolidado: Boolean = false;
   registro: Boolean = false;
-
   cssUrl: string;
 
   constructor(

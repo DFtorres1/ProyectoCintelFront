@@ -1,11 +1,14 @@
-<div>
-  <mat-sidenav-container class="container">
+
+<mat-sidenav-container  class="container">
+  <div class="bodyimg">
+  <img src="assets/LOGO-CINTEL.png" alt="login">
+</div>
     <mat-sidenav mode="side" opened class="contentContainer">
-      <mat-nav-list class="userInfo">
-        <mat-nav-list>
+      <mat-nav-list >
+        <mat-nav-list class="userInfo">
           {{ user.name + " " + user.surname }}
         </mat-nav-list>
-        <mat-nav-list>
+        <mat-nav-list class="userInfosub">
           {{ user.role }}
         </mat-nav-list>
       </mat-nav-list>
@@ -16,25 +19,25 @@
             <mat-nav-list class="functionButtonsMat">
               <div class="functionButtons">
                 <mat-nav-list>
-                  <button mat-raised-button type="button" (click)="showChequeo()">
+                  <button class="allButton" mat-raised-button type="button" (click)="showChequeo()">
                     Lista de chequeo
                   </button>
                 </mat-nav-list>
 
                 <mat-nav-list>
-                  <button mat-raised-button type="button" (click)="showTAC()">
+                  <button class="allButton" mat-raised-button type="button" (click)="showTAC()">
                     Consulta de TAC
                   </button>
                 </mat-nav-list>
 
                 <mat-nav-list>
-                  <button mat-raised-button type="button" (click)="showConsolidado()">
+                  <button class="allButton" mat-raised-button type="button" (click)="showConsolidado()">
                     Consolidado
                   </button>
                 </mat-nav-list>
 
                 <mat-nav-list *ngIf="access">
-                  <button mat-raised-button type="button" (click)="showRegistro()">
+                  <button class="allButton" mat-raised-button type="button" (click)="showRegistro()">
                     Registrar usuarios
                   </button>
                 </mat-nav-list>
@@ -43,9 +46,9 @@
 
             <div class="logOutButton">
               <mat-nav-list>
-                <button mat-raised-button type="button" (click)="logout()">
-                  Log Out
-                </button>
+                <a  mat-raised-button  class="button1" (click)="logout()">
+                  Cerrar sesión
+                </a>
               </mat-nav-list>
             </div>
           </mat-nav-list>
@@ -70,4 +73,3 @@
     </mat-sidenav-content>
 
   </mat-sidenav-container>
-</div>

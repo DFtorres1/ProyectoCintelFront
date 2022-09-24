@@ -1,5 +1,4 @@
 /* ESTILOS DE TABLA */ 
-
 .main-container {
   height: 650px;
   width: 1200px;
@@ -9,12 +8,25 @@
 
 table {
   width: 3000px;
+  text-align: left;
+  border-collapse: collapse;
+  padding: 20px;
+
+  
+}
+.tablec{
+  background-color: #203c75;
+  width: 3000px;
+  text-align: left;
+  border-collapse: collapse;
+  padding: 20px;
+  color: #dee2e6;
 }
 
 td.mat-column-large {
   width: 150px;
-  padding-left: 10px;
-  padding-right: 8px;
+  padding-left: auto;
+  padding-right: auto;
 }
 
 td.mat-column-mid {
@@ -36,7 +48,15 @@ th.mat-column-position, td.mat-column-position {
 }
 
 button {
-  margin: 0 8px 8px 0;
+  background-color: #203c75;
+  color: aliceblue;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: medium;
+  padding: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+  border: none;
+  border-radius: 10px;
 }
 
 header {
@@ -63,6 +83,7 @@ mat-icon {
 
 .table {
   padding: 20px;
+
 }
 
 .table tbody tr td,
@@ -70,6 +91,16 @@ mat-icon {
 .table thead {
   border-left: 1px solid #dee2e6;
   border-right: 1px solid #dee2e6;
+  padding: 15px;
+}
+
+tr:nth-child(even){
+  background-color: rgb(234, 240, 243);
+}
+
+tr:hover td{
+  background-color: #748abb57;
+  color: rgb(49, 49, 49);
 }
 
 .output {
@@ -85,7 +116,7 @@ mat-icon {
 }
 
 .edit {
-  color: yellow;
+  color: #203c75;
 }
 span.ui-column-resizer {
   width: 100%;

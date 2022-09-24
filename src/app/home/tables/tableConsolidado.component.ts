@@ -292,7 +292,7 @@ export class TableConsolidado implements OnInit {
       };
 
       this.chequeos = {
-        settled: group.get("settled").value,
+        settled: group.get("entrySettlement").value,
         entryDate: null,
         userType: null,
         brand: null,
@@ -324,13 +324,14 @@ export class TableConsolidado implements OnInit {
         agent: group.get("responsible").value
       }
 
-      this.tableChequeoService.postListaDeChequeo(this.chequeos);
+      this.tableChequeoService.postListaDeChequeo(this.chequeos).subscribe();
 
       this.tableService
         .postConsolidadoGeneral(this.consolidados)
         .subscribe((consolidado: Consolidado[]) => {
           this.setCurrentTable(consolidado);
-          group.get("idCg").setValue(consolidado[-1].idCg);
+          this.ngOnInit;
+          window.location.reload();
         });
     } else {
       this.consolidados = {
@@ -357,6 +358,8 @@ export class TableConsolidado implements OnInit {
         aditionalObs: group.get("aditionalObs").value,
         complements: group.get("complements").value,
       };
+
+      window.location.reload();
 
       this.tableService
         .putConsolidadoGeneral(this.consolidados)

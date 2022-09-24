@@ -1,14 +1,13 @@
 mat-sidenav {
   display: flex;
-  align-items: center;
   justify-content: center;
-  width: 20%;
-  background: #1E2126;
+  width: 24%;
+  background-color: #203c75;
 }
 
 mat-nav-list {
   display: grid;
-  margin-top: 15px;
+  margin-top: 5px;
   /*justify-content: center;*/
 }
 
@@ -17,21 +16,48 @@ mat-sidenav-content {
   padding-bottom: 50px;
 }
 
+.bodyimg{
+  
+  background-repeat: no-repeat;
+  margin: 220px 190px;
+  background-color: #fff;
+}
+
 button {
-  background-color: #28DEFF;
+  background-color: #1f3541;
+  color: aliceblue;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: medium;
-  font-weight: 600;
+  font-weight: 600; 
+}
+
+.button1{
+  background: linear-gradient( #57a5ff, #9fd7f8) ;
+  color: aliceblue;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: medium;
+  padding: 10px;
 }
 
 .userInfo {
-  margin-top: 15px;
+  margin-top: 20px;
   justify-self: center;
   justify-items: center;
   font-family: monospace;
   font-size: large;
   font-weight: 600;
   color: #eee;
+}
+
+.userInfosub {
+  margin-top: 5px;
+  margin-bottom: 40px;
+  justify-self: center;
+  justify-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: large;
+  font-weight: 200;
+  color: rgb(255, 255, 255);  
 }
 
 .allButtons {
@@ -46,9 +72,18 @@ button {
 }
 
 .logOutButton {
-  margin-top: 100px;
+  margin-top: 200px;
   justify-content: center;
   justify-self: center;
+  width: 200%;
+}
+
+.allButton {
+  margin-top: 1px;
+  justify-content: center;
+  justify-self: center;
+  width: 200%;
+  padding: 10px;
 }
 
 .functions {
@@ -70,18 +105,17 @@ button {
 .container {
   position: absolute;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-between; 
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  background: #eee;
+  background: rgb(255, 255, 255); 
 }
 
 .buttons {
   justify-content: space-between;
 }
 
-.button {
-  margin-top: 20px;
-}
+
+

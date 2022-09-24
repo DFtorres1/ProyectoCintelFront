@@ -14,11 +14,10 @@ import { environment } from "../../../environments/environment";
 export class TablesServiceTAC {
   constructor(private http: HttpClient) {}
   result: any;
-  private basePath = `${environment.apiUrl}/Consulta/all`;
-  // private basePath = `${environment.apiUrl}/Lista`;
+  private basePath = `${environment.apiUrl}/Consulta/`;
 
   getConsultaDeTAC(): Observable<Consulta[]> {
-    const request = this.http.get<Consulta[]>(this.basePath);
+    const request = this.http.get<Consulta[]>(this.basePath + "all/");
     return request;
   }
   

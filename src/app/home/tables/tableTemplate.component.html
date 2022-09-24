@@ -1,9 +1,10 @@
+
 <section class="main-container mat-elevation-z8" tabindex="0">
-  <form [formGroup]="templateTable">
-    <table class="table table-border" [ngClass]="{'table-dark': mode}">
-      <thead>
-        <tr>
-          <th *ngFor="let field of formFields">{{field.name}}
+  <form  [formGroup]="templateTable">
+    <table  class="table table-border" [ngClass]="{'table-dark': mode}">
+      <thead >
+        <tr >
+          <th class="tablec" *ngFor="let field of formFields">{{field.name}}
             <span class="ui-column-resizer" dragableColumn> </span>
           </th>
         </tr>
@@ -15,7 +16,6 @@
           let i = index;">
 
           <tr *ngIf="group.get('isEditable').value" [formGroupName]="i">
-
             <td *ngFor="let field of formFields">
               <mat-form-field>
                 <input matInput type="text" [formControlName]="field.formControl"/>
@@ -39,8 +39,8 @@
       </tbody>
     </table>
     <div class="action-container">
-      <button mat-raised-button type="submit" (click)="addRow()">Add row</button>
-      <button mat-raised-button [disabled]="templateTable.invalid" type="submit" (click)="submitForm()">Submit</button>
+      <button class="button"  type="submit" (click)="addRow()">Agregar columna</button>
+     <!-- <button class="button"  [disabled]="templateTable.invalid" type="submit" (click)="submitForm()">Submit</button>-->
     </div>
   </form>
 </section>

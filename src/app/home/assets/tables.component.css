@@ -1,6 +1,6 @@
 /* ESTILOS DE TABLA */ 
 .main-container {
-  height: 650px;
+  height: 80% ;
   width: 1200px;
   max-width: 100%;
   overflow: auto;
@@ -12,8 +12,12 @@ table {
   border-collapse: collapse;
   padding: 20px;
 
-  
 }
+
+tables {
+  justify-content: space-between;
+}
+
 .tablec{
   background-color: #203c75;
   width: 3000px;

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
 import { Chequeo } from "../../core/models/tables.models/listaDeChequeo.model";
 import { Consolidado } from "../../core/models/tables.models/consolidado.model";
 import { TablesService } from "../shared/tableConsolidado.service";
@@ -133,13 +133,13 @@ export class TableConsolidado implements OnInit {
   consolidados: Consolidado;
   chequeos: Chequeo;
   listaConsolidados: Consolidado[] = [];
-  templateTable: FormGroup;
-  control: FormArray;
+  templateTable: UntypedFormGroup;
+  control: UntypedFormArray;
 
   //Variable para el almacenamiento local de la tabla
   private localStorageService: Storage;
 
-  constructor(private tableService: TablesService, private tableChequeoService: TablesServiceChequeo, private fb: FormBuilder) {
+  constructor(private tableService: TablesService, private tableChequeoService: TablesServiceChequeo, private fb: UntypedFormBuilder) {
     this.localStorageService = localStorage;
   }
 
@@ -161,10 +161,10 @@ export class TableConsolidado implements OnInit {
   }
 
   ngAfterOnInit() {
-    this.control = this.templateTable.get("tableRows") as FormArray;
+    this.control = this.templateTable.get("tableRows") as UntypedFormArray;
   }
 
-  initiateForm(consolidado?: Consolidado): FormGroup {
+  initiateForm(consolidado?: Consolidado): UntypedFormGroup {
     if (consolidado != undefined) {
       return this.fb.group({
         idCg: [consolidado.idCg],
@@ -243,12 +243,12 @@ export class TableConsolidado implements OnInit {
   }
 
   addRow(consolidado?: Consolidado) {
-    const control = this.templateTable.get("tableRows") as FormArray;
+    const control = this.templateTable.get("tableRows") as UntypedFormArray;
     control.push(this.addRowDetails(consolidado));
   }
 
-  deleteRow(index: number, group: FormGroup) {
-    const control = this.templateTable.get("tableRows") as FormArray;
+  deleteRow(index: number, group: UntypedFormGroup) {
+    const control = this.templateTable.get("tableRows") as UntypedFormArray;
     control.removeAt(index);
 
     this.tableService
@@ -258,12 +258,12 @@ export class TableConsolidado implements OnInit {
       );
   }
 
-  editRow(group: FormGroup) {
+  editRow(group: UntypedFormGroup) {
     group.get("isEditable").setValue(true);
     group.get("new").setValue(false);
   }
 
-  doneRow(group: FormGroup) {
+  doneRow(group: UntypedFormGroup) {
     group.get("isEditable").setValue(false);
 
     if (group.get("new").value) {
@@ -370,7 +370,7 @@ export class TableConsolidado implements OnInit {
   }
 
   submitForm() {
-    const control = this.templateTable.get("tableRows") as FormArray;
+    const control = this.templateTable.get("tableRows") as UntypedFormArray;
     this.touchedRows = control.controls
       .filter((row) => row.touched)
       .map((row) => row.value);
@@ -382,7 +382,7 @@ export class TableConsolidado implements OnInit {
   }
 
   get getFormControls() {
-    const control = this.templateTable.get("tableRows") as FormArray;
+    const control = this.templateTable.get("tableRows") as UntypedFormArray;
     return control;
   }
 }

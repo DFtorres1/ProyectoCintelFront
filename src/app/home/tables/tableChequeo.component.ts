@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
 import { Consulta } from "../../core/models/tables.models/consulta.model";
 import { Chequeo } from "../../core/models/tables.models/listaDeChequeo.model";
 import { TablesServiceChequeo } from "../shared/tableChequeo.service";
@@ -173,13 +173,13 @@ export class TableChequeo implements OnInit {
   chequeos: Chequeo;
   consultas: Consulta;
   listaChequeos: Chequeo[] = [];
-  templateTable: FormGroup;
-  control: FormArray;
+  templateTable: UntypedFormGroup;
+  control: UntypedFormArray;
 
   //Variable para el almacenamiento local de la tabla
   private localStorageService: Storage;
 
-  constructor(private tableService: TablesServiceChequeo, private tableServiceTAC: TablesServiceTAC, private fb: FormBuilder) {
+  constructor(private tableService: TablesServiceChequeo, private tableServiceTAC: TablesServiceTAC, private fb: UntypedFormBuilder) {
     this.localStorageService = localStorage;
   }
 
@@ -201,10 +201,10 @@ export class TableChequeo implements OnInit {
   }
 
   ngAfterOnInit() {
-    this.control = this.templateTable.get("tableRows") as FormArray;
+    this.control = this.templateTable.get("tableRows") as UntypedFormArray;
   }
 
-  initiateForm(chequeo?: Chequeo): FormGroup {
+  initiateForm(chequeo?: Chequeo): UntypedFormGroup {
     if (chequeo != undefined) {
       return this.fb.group({
         idLc: [chequeo.idLc],
@@ -304,12 +304,12 @@ export class TableChequeo implements OnInit {
   }
 
   addRow(chequeo?: Chequeo) {
-    const control = this.templateTable.get("tableRows") as FormArray;
+    const control = this.templateTable.get("tableRows") as UntypedFormArray;
     control.push(this.addRowDetails(chequeo));
   }
 
-  deleteRow(index: number, group: FormGroup) {
-    const control = this.templateTable.get("tableRows") as FormArray;
+  deleteRow(index: number, group: UntypedFormGroup) {
+    const control = this.templateTable.get("tableRows") as UntypedFormArray;
     control.removeAt(index);
 
     this.tableService
@@ -317,12 +317,12 @@ export class TableChequeo implements OnInit {
       .subscribe((check: Chequeo[]) => this.setCurrentTable(check));
   }
 
-  editRow(group: FormGroup) {
+  editRow(group: UntypedFormGroup) {
     group.get("isEditable").setValue(true);
     group.get("new").setValue(false);
   }
 
-  doneRow(group: FormGroup) {
+  doneRow(group: UntypedFormGroup) {
     group.get("isEditable").setValue(false);
 
     if (group.get("new").value) {
@@ -484,7 +484,7 @@ export class TableChequeo implements OnInit {
   }
 
   submitForm() {
-    const control = this.templateTable.get("tableRows") as FormArray;
+    const control = this.templateTable.get("tableRows") as UntypedFormArray;
     this.touchedRows = control.controls
       .filter((row) => row.touched)
       .map((row) => row.value);
@@ -496,7 +496,7 @@ export class TableChequeo implements OnInit {
   }
 
   get getFormControls() {
-    const control = this.templateTable.get("tableRows") as FormArray;
+    const control = this.templateTable.get("tableRows") as UntypedFormArray;
     return control;
   }
 }

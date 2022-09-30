@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
 import { Consulta } from "../../core/models/tables.models/consulta.model";
 import { TablesServiceTAC } from "../shared/tableConsultaTAC.service";
 
@@ -100,13 +100,13 @@ export class TableTAC implements OnInit {
   touchedRows: any;
   consultas: Consulta;
   listaConsulta: Consulta[] = [];
-  templateTable: FormGroup;
-  control: FormArray;
+  templateTable: UntypedFormGroup;
+  control: UntypedFormArray;
 
   //Variable para el almacenamiento local de la tabla
   private localStorageService: Storage;
 
-  constructor(private tableService: TablesServiceTAC, private fb: FormBuilder) {
+  constructor(private tableService: TablesServiceTAC, private fb: UntypedFormBuilder) {
     this.localStorageService = localStorage;
   }
 
@@ -128,10 +128,10 @@ export class TableTAC implements OnInit {
   }
 
   ngAfterOnInit() {
-    this.control = this.templateTable.get("tableRows") as FormArray;
+    this.control = this.templateTable.get("tableRows") as UntypedFormArray;
   }
 
-  initiateForm(consulta?: Consulta): FormGroup {
+  initiateForm(consulta?: Consulta): UntypedFormGroup {
     if (consulta != undefined) {
       return this.fb.group({
         idCt: [consulta.idCt],
@@ -198,12 +198,12 @@ export class TableTAC implements OnInit {
   }
 
   addRow(consulta?: Consulta) {
-    const control = this.templateTable.get("tableRows") as FormArray;
+    const control = this.templateTable.get("tableRows") as UntypedFormArray;
     control.push(this.addRowDetails(consulta));
   }
 
-  deleteRow(index: number, group: FormGroup) {
-    const control = this.templateTable.get("tableRows") as FormArray;
+  deleteRow(index: number, group: UntypedFormGroup) {
+    const control = this.templateTable.get("tableRows") as UntypedFormArray;
     control.removeAt(index);
 
     this.tableService
@@ -211,12 +211,12 @@ export class TableTAC implements OnInit {
       .subscribe((consulta: Consulta[]) => this.setCurrentTable(consulta));
   }
 
-  editRow(group: FormGroup) {
+  editRow(group: UntypedFormGroup) {
     group.get("isEditable").setValue(true);
     group.get("new").setValue(false);
   }
 
-  doneRow(group: FormGroup) {
+  doneRow(group: UntypedFormGroup) {
     group.get("isEditable").setValue(false);
 
     if (group.get("new").value) {
@@ -271,7 +271,7 @@ export class TableTAC implements OnInit {
   }
 
   submitForm() {
-    const control = this.templateTable.get("tableRows") as FormArray;
+    const control = this.templateTable.get("tableRows") as UntypedFormArray;
     this.touchedRows = control.controls
       .filter((row) => row.touched)
       .map((row) => row.value);
@@ -283,7 +283,7 @@ export class TableTAC implements OnInit {
   }
 
   get getFormControls() {
-    const control = this.templateTable.get("tableRows") as FormArray;
+    const control = this.templateTable.get("tableRows") as UntypedFormArray;
     return control;
   }
 }

@@ -23,6 +23,7 @@ import { TableChequeo   } from "./home/tables/tableChequeo.component";
 import { TableConsolidado } from "./home/tables/tableConsolidado.component";
 import { TableTAC } from "./home/tables/tableTAC.component";
 import { TableRegistro } from "./home/tables/tableRegistro.component";
+import { MatNativeDateModule } from "@angular/material/core";
 
 const modules = [
   BrowserModule,
@@ -31,6 +32,7 @@ const modules = [
   BrowserAnimationsModule,
   CoreModule,
   ReactiveFormsModule,
+  MatNativeDateModule,
   MatTableModule,
   MatIconModule,
   MatInputModule,

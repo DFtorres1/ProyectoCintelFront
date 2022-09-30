@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { StorageService } from "../core/services/storage.service";
 import { AuthenticationService } from "../login/shared/authentication.service";
 import { Users } from "../core/models/tables.models/users.model";
-import { ImgSrcDirective } from "@angular/flex-layout";
 
 @Component({
   selector: "home",
@@ -28,7 +27,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.user = this.storageService.getCurrentUser();
 
-    if (this.user.role == "administrador") {
+    if (this.user.role == "Administrador" || "Lider" || "Gerente") {
       this.access = true;
     }
   }

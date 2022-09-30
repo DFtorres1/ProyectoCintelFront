@@ -20,7 +20,7 @@ const Columns = [
   {
     name: "Fecha de entrada",
     formControl: "entryDate",
-    type: "text",
+    type: "date",
   },
   {
     name: "Tipo de usuario",
@@ -240,6 +240,8 @@ export class TableChequeo implements OnInit {
         agent: [chequeo.agent],
         isEditable: [false],
         new: [false],
+        tacEdited: [false],
+        lastTac: [chequeo.tac]
       });
     } else {
       return this.fb.group({
@@ -275,6 +277,8 @@ export class TableChequeo implements OnInit {
         complements: [""],
         isEditable: [true],
         new: [true],
+        tacEdited: [false],
+        lastTac: [""]
       });
     }
   }
@@ -379,9 +383,9 @@ export class TableChequeo implements OnInit {
         .subscribe((check: Chequeo[]) => {
           this.setCurrentTable(check);
           this.ngOnInit;
-          window.location.reload();
         });
-    } else {
+
+    } else if(group.get("lastTac").value == group.get("tac").value) {
       this.chequeos = {
         idLc: group.get("idLc").value,
         settled: group.get("settled").value,
@@ -415,11 +419,67 @@ export class TableChequeo implements OnInit {
         complements: group.get("complements").value,
       };
 
-      window.location.reload();
-
       this.tableService
         .putListaDeChequeo(this.chequeos)
         .subscribe((check: Chequeo[]) => this.setCurrentTable(check));
+
+    } else {
+      this.chequeos = {
+        settled: group.get("settled").value,
+        entryDate: group.get("entryDate").value,
+        userType: group.get("userType").value,
+        brand: group.get("brand").value,
+        model: group.get("model").value,
+        tac: group.get("tac").value,
+        tacquery: group.get("tacquery").value,
+        label: group.get("label").value,
+        fcc: group.get("fcc").value === ("true" || "1"),
+        anatel: group.get("anatel").value === ("true" || "1"),
+        ic: group.get("ic").value === ("true" || "1"),
+        ncc: group.get("ncc").value === ("true" || "1"),
+        ofca: group.get("ofca").value === ("true" || "1"),
+        mtc: group.get("mtc").value === ("true" || "1"),
+        mic: group.get("mic").value === ("true" || "1"),
+        cccCo: group.get("cccCo").value === ("true" || "1"),
+        ce: group.get("ce").value === ("true" || "1"),
+        others: group.get("others").value === ("true" || "1"),
+        mhz700: group.get("mhz700").value === ("true" || "1"),
+        mhz850: group.get("mhz850").value === ("true" || "1"),
+        mhz1700: group.get("mhz1700").value === ("true" || "1"),
+        mhz1900: group.get("mhz1900").value === ("true" || "1"),
+        mhz2500: group.get("mhz2500").value === ("true" || "1"),
+        sar: group.get("sar").value === ("true" || "1"),
+        certifyingEntity: group.get("certifyingEntity").value,
+        certifierNumber: group.get("certifierNumber").value,
+        laboratory: group.get("laboratory").value,
+        answer: group.get("answer").value,
+        complements: group.get("complements").value,
+      };
+
+      this.consultas = {
+        queryDate: null,
+        responsible: null,
+        tac: group.get("tac").value,
+        brand: group.get("brand").value,
+        model: group.get("model").value,
+        gsmabrand: null,
+        gsmamodel: null,
+        crctacapp: null,
+        brand_C: null,
+        model_C: null,
+        manufacturer: null,
+        question: null,
+        answer: null,
+        applicantEMail: null,
+        consultationDay: null,
+      }
+
+      this.tableServiceTAC.postConsultaDeTAC(this.consultas).subscribe();
+
+      this.tableService
+      .putListaDeChequeo(this.chequeos)
+      .subscribe((check: Chequeo[]) => this.setCurrentTable(check));
+
     }
   }
 

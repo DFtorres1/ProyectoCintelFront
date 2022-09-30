@@ -15,15 +15,29 @@
             formArrayName="tableRows"
             *ngFor="let group of getFormControls.controls; let i = index"
           >
+            <!-- BLOQUE DE CODIGO PARA EDITAR CADA CAMPO -->
             <tr *ngIf="group.get('isEditable').value" [formGroupName]="i">
               <td *ngFor="let field of formFields">
-                <mat-form-field>
+
+                <mat-form-field *ngIf="field.type == 'text'">
                   <input
                     matInput
                     type="text"
                     [formControlName]="field.formControl"
                   />
                 </mat-form-field>
+                
+                <mat-form-field *ngIf="field.type == 'date'">
+                  <mat-label>Fecha</mat-label>
+                  <input matInput [matDatepicker]="picker" />
+                  <mat-hint>MM/DD/YYYY</mat-hint>
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                
               </td>
 
               <td>
@@ -51,5 +65,5 @@
       </div>
     </form>
   </section>
-  <img src="../../../assets/Logo-CRC-PNG.png"/>
+  <img src="../../../assets/Logo-CRC-PNG.png" />
 </div>

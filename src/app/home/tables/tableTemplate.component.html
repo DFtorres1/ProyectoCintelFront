@@ -1,6 +1,6 @@
 <div class="tables">
   <section class="main-container mat-elevation-z8" tabindex="0">
-    <form [formGroup]="templateTable">
+    <form [formGroup]="templateTable" ngNativeValidate>
       <table class="table table-border" [ngClass]="{ 'table-dark': mode }">
         <thead>
           <tr>
@@ -41,6 +41,14 @@
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
 
+                <!--
+                  
+                <mat-form-field *ngIf="field.type == 'toggle'">
+                  <mat-slide-toggle mat-slide-toggle [required]="false" [formControlName]="field.formControl">
+                  </mat-slide-toggle>
+                </mat-form-field>
+
+                -->
               </td>
 
               <td>

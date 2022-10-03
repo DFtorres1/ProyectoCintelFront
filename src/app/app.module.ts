@@ -16,6 +16,7 @@ import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
 import { MatSidenavModule } from "@angular/material/sidenav";
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatListModule } from "@angular/material/list";
 import { MatSortModule } from "@angular/material/sort";
 import { MatTableModule } from '@angular/material/table';
@@ -43,6 +44,7 @@ const modules = [
   MatButtonModule,
   MatCardModule,
   MatSidenavModule,
+  MatSlideToggleModule,
   MatSortModule,
   MatListModule,
 ]

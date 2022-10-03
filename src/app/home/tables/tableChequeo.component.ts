@@ -1,5 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { UntypedFormArray, UntypedFormBuilder as FormBuilder, UntypedFormGroup as FormGroup, Validators } from "@angular/forms";
+import {
+  UntypedFormArray,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from "@angular/forms";
 import { Consulta } from "../../core/models/tables.models/consulta.model";
 import { Chequeo } from "../../core/models/tables.models/listaDeChequeo.model";
 import { TablesServiceChequeo } from "../shared/tableChequeo.service";
@@ -55,77 +60,77 @@ const Columns = [
   {
     name: "FCC",
     formControl: "fcc",
-    type: "text"
+    type: "text",
   },
   {
     name: "ANATEL",
     formControl: "anatel",
-    type: "text"
+    type: "text",
   },
   {
     name: "IC",
     formControl: "ic",
-    type: "text"
+    type: "text",
   },
   {
     name: "NCC",
     formControl: "ncc",
-    type: "text"
+    type: "text",
   },
   {
     name: "OFCA",
     formControl: "ofca",
-    type: "text"
+    type: "text",
   },
   {
     name: "MTC",
     formControl: "mtc",
-    type: "text"
+    type: "text",
   },
   {
     name: "MIC",
     formControl: "mic",
-    type: "text"
+    type: "text",
   },
   {
     name: "CCC-CO",
     formControl: "cccCo",
-    type: "text"
+    type: "text",
   },
   {
     name: "CE",
     formControl: "ce",
-    type: "text"
+    type: "text",
   },
   {
     name: "OTROS",
     formControl: "others",
-    type: "text"
+    type: "text",
   },
   {
     name: "703MHz",
     formControl: "mhz700",
-    type: "text"
+    type: "text",
   },
   {
     name: "824MHz",
     formControl: "mhz850",
-    type: "text"
+    type: "text",
   },
   {
     name: "1710MHz",
     formControl: "mhz1700",
-    type: "text"
+    type: "text",
   },
   {
     name: "1850MHz",
     formControl: "mhz1900",
-    type: "text"
+    type: "text",
   },
   {
     name: "2500MHz",
     formControl: "mhz2500",
-    type: "text"
+    type: "text",
   },
   {
     name: "SAR",
@@ -179,7 +184,11 @@ export class TableChequeo implements OnInit {
   //Variable para el almacenamiento local de la tabla
   private localStorageService: Storage;
 
-  constructor(private tableService: TablesServiceChequeo, private tableServiceTAC: TablesServiceTAC, private fb: FormBuilder) {
+  constructor(
+    private tableService: TablesServiceChequeo,
+    private tableServiceTAC: TablesServiceTAC,
+    private fb: FormBuilder
+  ) {
     this.localStorageService = localStorage;
   }
 
@@ -241,7 +250,7 @@ export class TableChequeo implements OnInit {
         isEditable: [false],
         new: [false],
         tacEdited: [false],
-        lastTac: [chequeo.tac]
+        lastTac: [chequeo.tac],
       });
     } else {
       return this.fb.group({
@@ -278,7 +287,7 @@ export class TableChequeo implements OnInit {
         isEditable: [true],
         new: [true],
         tacEdited: [false],
-        lastTac: [""]
+        lastTac: [""],
       });
     }
   }
@@ -374,18 +383,14 @@ export class TableChequeo implements OnInit {
         answer: null,
         applicantEMail: null,
         consultationDay: null,
-      }
-
-      this.tableServiceTAC.postConsultaDeTAC(this.consultas).subscribe();
+      };
 
       this.tableService
         .postListaDeChequeo(this.chequeos)
-        .subscribe((check: Chequeo[]) => {
-          this.setCurrentTable(check);
-          this.ngOnInit;
-        });
+        .subscribe((check: Chequeo[]) => this.setCurrentTable(check));
 
-    } else if(group.get("lastTac").value == group.get("tac").value) {
+      this.tableServiceTAC.postConsultaDeTAC(this.consultas).subscribe();
+    } else if (group.get("lastTac").value == group.get("tac").value) {
       this.chequeos = {
         idLc: group.get("idLc").value,
         settled: group.get("settled").value,
@@ -422,7 +427,6 @@ export class TableChequeo implements OnInit {
       this.tableService
         .putListaDeChequeo(this.chequeos)
         .subscribe((check: Chequeo[]) => this.setCurrentTable(check));
-
     } else {
       this.chequeos = {
         settled: group.get("settled").value,
@@ -472,14 +476,13 @@ export class TableChequeo implements OnInit {
         answer: null,
         applicantEMail: null,
         consultationDay: null,
-      }
+      };
 
       this.tableServiceTAC.postConsultaDeTAC(this.consultas).subscribe();
 
       this.tableService
-      .putListaDeChequeo(this.chequeos)
-      .subscribe((check: Chequeo[]) => this.setCurrentTable(check));
-
+        .putListaDeChequeo(this.chequeos)
+        .subscribe((check: Chequeo[]) => this.setCurrentTable(check));
     }
   }
 

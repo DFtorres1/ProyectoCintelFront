@@ -1,5 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
+import {
+  UntypedFormArray,
+  UntypedFormBuilder,
+  UntypedFormGroup,
+} from "@angular/forms";
 import { Users } from "../../core/models/tables.models/users.model";
 import { TablesService } from "../shared/tableUsers.service";
 
@@ -65,13 +69,16 @@ export class TableRegistro implements OnInit {
   touchedRows: any;
   registros: Users;
   listaUsuarios: Users[] = [];
-  templateTable: FormGroup;
-  control: FormArray;
+  templateTable: UntypedFormGroup;
+  control: UntypedFormArray;
 
   //Variable para el almacenamiento local de la tabla
   private localStorageService: Storage;
 
-  constructor(private tableService: TablesService, private fb: FormBuilder) {
+  constructor(
+    private tableService: TablesService,
+    private fb: UntypedFormBuilder
+  ) {
     this.localStorageService = localStorage;
   }
 
@@ -92,10 +99,10 @@ export class TableRegistro implements OnInit {
   }
 
   ngAfterOnInit() {
-    this.control = this.templateTable.get("tableRows") as FormArray;
+    this.control = this.templateTable.get("tableRows") as UntypedFormArray;
   }
 
-  initiateForm(registro?: Users): FormGroup {
+  initiateForm(registro?: Users): UntypedFormGroup {
     if (registro != undefined) {
       return this.fb.group({
         idUser: [registro.idUser],
@@ -148,12 +155,12 @@ export class TableRegistro implements OnInit {
   }
 
   addRow(registro?: Users) {
-    const control = this.templateTable.get("tableRows") as FormArray;
+    const control = this.templateTable.get("tableRows") as UntypedFormArray;
     control.push(this.addRowDetails(registro));
   }
 
-  deleteRow(index: number, group: FormGroup) {
-    const control = this.templateTable.get("tableRows") as FormArray;
+  deleteRow(index: number, group: UntypedFormGroup) {
+    const control = this.templateTable.get("tableRows") as UntypedFormArray;
     control.removeAt(index);
 
     this.tableService
@@ -161,12 +168,12 @@ export class TableRegistro implements OnInit {
       .subscribe((users: Users[]) => this.setCurrentTable(users));
   }
 
-  editRow(group: FormGroup) {
+  editRow(group: UntypedFormGroup) {
     group.get("isEditable").setValue(true);
     group.get("new").setValue(false);
   }
 
-  doneRow(group: FormGroup) {
+  doneRow(group: UntypedFormGroup) {
     group.get("isEditable").setValue(false);
 
     if (group.get("new").value) {
@@ -185,9 +192,8 @@ export class TableRegistro implements OnInit {
         .postUsuarios(this.registros)
         .subscribe((registro: Users[]) => {
           this.setCurrentTable(registro);
-          group.get("idLc").setValue(registro[-1].idUser);
+          this.ngOnInit();
         });
-        
     } else {
       this.registros = {
         idUser: group.get("idUser").value,
@@ -208,7 +214,7 @@ export class TableRegistro implements OnInit {
   }
 
   submitForm() {
-    const control = this.templateTable.get("tableRows") as FormArray;
+    const control = this.templateTable.get("tableRows") as UntypedFormArray;
     this.touchedRows = control.controls
       .filter((row) => row.touched)
       .map((row) => row.value);
@@ -220,7 +226,7 @@ export class TableRegistro implements OnInit {
   }
 
   get getFormControls() {
-    const control = this.templateTable.get("tableRows") as FormArray;
+    const control = this.templateTable.get("tableRows") as UntypedFormArray;
     return control;
   }
 }

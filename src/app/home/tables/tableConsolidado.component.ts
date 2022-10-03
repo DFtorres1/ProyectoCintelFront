@@ -20,7 +20,7 @@ const Columns = [
   {
     name: "Fecha Entrada CRC",
     formControl: "crcentryDate",
-    type: "text",
+    type: "date",
   },
   {
     name: "Responsable",
@@ -30,32 +30,32 @@ const Columns = [
   {
     name: "Fecha Límite",
     formControl: "deadlineDate",
-    type: "text",
+    type: "date",
   },
   {
     name: "Vencimiento CRC",
     formControl: "crcexpiration",
-    type: "text",
+    type: "date",
   },
   {
     name: "Vencimiento CINTEL",
     formControl: "cintelExpiration",
-    type: "text",
+    type: "date",
   },
   {
     name: "Fecha Entrada CINTEL",
     formControl: "cintelEntryDate",
-    type: "text",
+    type: "date",
   },
   {
     name: "Fecha Entrada Responsable",
     formControl: "responsibleEntryDate",
-    type: "text",
+    type: "date",
   },
   {
     name: "Fecha Salida Responsable",
     formControl: "responsibleExitDate",
-    type: "text",
+    type: "date",
   },
   {
     name: "Días Hábiles",
@@ -90,12 +90,12 @@ const Columns = [
   {
     name: "Fecha Revisión",
     formControl: "reviewDate",
-    type: "text",
+    type: "date",
   },
   {
     name: "Fecha Salida CINTEL",
     formControl: "cintelExitDate",
-    type: "text",
+    type: "date",
   },
   {
     name: "Observaciones Responsable",
@@ -331,7 +331,6 @@ export class TableConsolidado implements OnInit {
         .subscribe((consolidado: Consolidado[]) => {
           this.setCurrentTable(consolidado);
           this.ngOnInit;
-          window.location.reload();
         });
     } else {
       this.consolidados = {
@@ -358,8 +357,6 @@ export class TableConsolidado implements OnInit {
         aditionalObs: group.get("aditionalObs").value,
         complements: group.get("complements").value,
       };
-
-      window.location.reload();
 
       this.tableService
         .putConsolidadoGeneral(this.consolidados)

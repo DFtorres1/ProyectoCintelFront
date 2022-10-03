@@ -1,5 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
+import {
+  UntypedFormArray,
+  UntypedFormBuilder,
+  UntypedFormGroup,
+} from "@angular/forms";
 import { Users } from "../../core/models/tables.models/users.model";
 import { TablesService } from "../shared/tableUsers.service";
 
@@ -71,7 +75,10 @@ export class TableRegistro implements OnInit {
   //Variable para el almacenamiento local de la tabla
   private localStorageService: Storage;
 
-  constructor(private tableService: TablesService, private fb: UntypedFormBuilder) {
+  constructor(
+    private tableService: TablesService,
+    private fb: UntypedFormBuilder
+  ) {
     this.localStorageService = localStorage;
   }
 
@@ -185,9 +192,8 @@ export class TableRegistro implements OnInit {
         .postUsuarios(this.registros)
         .subscribe((registro: Users[]) => {
           this.setCurrentTable(registro);
-          group.get("idLc").setValue(registro[-1].idUser);
+          this.ngOnInit();
         });
-        
     } else {
       this.registros = {
         idUser: group.get("idUser").value,

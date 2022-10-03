@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
+import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
 import { Chequeo } from "../../core/models/tables.models/listaDeChequeo.model";
 import { Consolidado } from "../../core/models/tables.models/consolidado.model";
 import { TablesService } from "../shared/tableConsolidado.service";
@@ -20,7 +20,7 @@ const Columns = [
   {
     name: "Fecha Entrada CRC",
     formControl: "crcentryDate",
-    type: "text",
+    type: "date",
   },
   {
     name: "Responsable",
@@ -30,32 +30,32 @@ const Columns = [
   {
     name: "Fecha Límite",
     formControl: "deadlineDate",
-    type: "text",
+    type: "date",
   },
   {
     name: "Vencimiento CRC",
     formControl: "crcexpiration",
-    type: "text",
+    type: "date",
   },
   {
     name: "Vencimiento CINTEL",
     formControl: "cintelExpiration",
-    type: "text",
+    type: "date",
   },
   {
     name: "Fecha Entrada CINTEL",
     formControl: "cintelEntryDate",
-    type: "text",
+    type: "date",
   },
   {
     name: "Fecha Entrada Responsable",
     formControl: "responsibleEntryDate",
-    type: "text",
+    type: "date",
   },
   {
     name: "Fecha Salida Responsable",
     formControl: "responsibleExitDate",
-    type: "text",
+    type: "date",
   },
   {
     name: "Días Hábiles",
@@ -90,12 +90,12 @@ const Columns = [
   {
     name: "Fecha Revisión",
     formControl: "reviewDate",
-    type: "text",
+    type: "date",
   },
   {
     name: "Fecha Salida CINTEL",
     formControl: "cintelExitDate",
-    type: "text",
+    type: "date",
   },
   {
     name: "Observaciones Responsable",
@@ -133,13 +133,13 @@ export class TableConsolidado implements OnInit {
   consolidados: Consolidado;
   chequeos: Chequeo;
   listaConsolidados: Consolidado[] = [];
-  templateTable: UntypedFormGroup;
-  control: UntypedFormArray;
+  templateTable: FormGroup;
+  control: FormArray;
 
   //Variable para el almacenamiento local de la tabla
   private localStorageService: Storage;
 
-  constructor(private tableService: TablesService, private tableChequeoService: TablesServiceChequeo, private fb: UntypedFormBuilder) {
+  constructor(private tableService: TablesService, private tableChequeoService: TablesServiceChequeo, private fb: FormBuilder) {
     this.localStorageService = localStorage;
   }
 
@@ -161,10 +161,10 @@ export class TableConsolidado implements OnInit {
   }
 
   ngAfterOnInit() {
-    this.control = this.templateTable.get("tableRows") as UntypedFormArray;
+    this.control = this.templateTable.get("tableRows") as FormArray;
   }
 
-  initiateForm(consolidado?: Consolidado): UntypedFormGroup {
+  initiateForm(consolidado?: Consolidado): FormGroup {
     if (consolidado != undefined) {
       return this.fb.group({
         idCg: [consolidado.idCg],
@@ -243,12 +243,12 @@ export class TableConsolidado implements OnInit {
   }
 
   addRow(consolidado?: Consolidado) {
-    const control = this.templateTable.get("tableRows") as UntypedFormArray;
+    const control = this.templateTable.get("tableRows") as FormArray;
     control.push(this.addRowDetails(consolidado));
   }
 
-  deleteRow(index: number, group: UntypedFormGroup) {
-    const control = this.templateTable.get("tableRows") as UntypedFormArray;
+  deleteRow(index: number, group: FormGroup) {
+    const control = this.templateTable.get("tableRows") as FormArray;
     control.removeAt(index);
 
     this.tableService
@@ -258,12 +258,12 @@ export class TableConsolidado implements OnInit {
       );
   }
 
-  editRow(group: UntypedFormGroup) {
+  editRow(group: FormGroup) {
     group.get("isEditable").setValue(true);
     group.get("new").setValue(false);
   }
 
-  doneRow(group: UntypedFormGroup) {
+  doneRow(group: FormGroup) {
     group.get("isEditable").setValue(false);
 
     if (group.get("new").value) {
@@ -331,7 +331,6 @@ export class TableConsolidado implements OnInit {
         .subscribe((consolidado: Consolidado[]) => {
           this.setCurrentTable(consolidado);
           this.ngOnInit;
-          window.location.reload();
         });
     } else {
       this.consolidados = {
@@ -359,8 +358,6 @@ export class TableConsolidado implements OnInit {
         complements: group.get("complements").value,
       };
 
-      window.location.reload();
-
       this.tableService
         .putConsolidadoGeneral(this.consolidados)
         .subscribe((consolidado: Consolidado[]) =>
@@ -370,7 +367,7 @@ export class TableConsolidado implements OnInit {
   }
 
   submitForm() {
-    const control = this.templateTable.get("tableRows") as UntypedFormArray;
+    const control = this.templateTable.get("tableRows") as FormArray;
     this.touchedRows = control.controls
       .filter((row) => row.touched)
       .map((row) => row.value);
@@ -382,7 +379,7 @@ export class TableConsolidado implements OnInit {
   }
 
   get getFormControls() {
-    const control = this.templateTable.get("tableRows") as UntypedFormArray;
+    const control = this.templateTable.get("tableRows") as FormArray;
     return control;
   }
 }

@@ -10,6 +10,8 @@ import { Routing } from "./app.routing";
 import { HomeComponent } from "./home/home.component";
 import { LoginComponent } from "./login/login.component";
 import { MatButtonModule } from "@angular/material/button";
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
@@ -32,6 +34,8 @@ const modules = [
   BrowserAnimationsModule,
   CoreModule,
   ReactiveFormsModule,
+  MatCheckboxModule,
+  MatDatepickerModule,
   MatNativeDateModule,
   MatTableModule,
   MatIconModule,

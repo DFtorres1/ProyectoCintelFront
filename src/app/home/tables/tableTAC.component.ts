@@ -242,7 +242,7 @@ export class TableTAC implements OnInit {
         .postConsultaDeTAC(this.consultas)
         .subscribe((consulta: Consulta[]) => {
           this.setCurrentTable(consulta);
-          group.get("idLc").setValue(consulta[-1].idCt);
+          this.ngOnInit();
         });
     } else {
       this.consultas = {

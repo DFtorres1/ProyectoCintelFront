@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
+import { UntypedFormArray, UntypedFormBuilder as FormBuilder, UntypedFormGroup as FormGroup, Validators } from "@angular/forms";
 import { Consulta } from "../../core/models/tables.models/consulta.model";
 import { Chequeo } from "../../core/models/tables.models/listaDeChequeo.model";
 import { TablesServiceChequeo } from "../shared/tableChequeo.service";
@@ -55,77 +55,77 @@ const Columns = [
   {
     name: "FCC",
     formControl: "fcc",
-    type: "text",
+    type: "text"
   },
   {
     name: "ANATEL",
     formControl: "anatel",
-    type: "text",
+    type: "text"
   },
   {
     name: "IC",
     formControl: "ic",
-    type: "text",
+    type: "text"
   },
   {
     name: "NCC",
     formControl: "ncc",
-    type: "text",
+    type: "text"
   },
   {
     name: "OFCA",
     formControl: "ofca",
-    type: "text",
+    type: "text"
   },
   {
     name: "MTC",
     formControl: "mtc",
-    type: "text",
+    type: "text"
   },
   {
     name: "MIC",
     formControl: "mic",
-    type: "text",
+    type: "text"
   },
   {
     name: "CCC-CO",
     formControl: "cccCo",
-    type: "text",
+    type: "text"
   },
   {
     name: "CE",
     formControl: "ce",
-    type: "text",
+    type: "text"
   },
   {
     name: "OTROS",
     formControl: "others",
-    type: "text",
+    type: "text"
   },
   {
     name: "703MHz",
     formControl: "mhz700",
-    type: "text",
+    type: "text"
   },
   {
     name: "824MHz",
     formControl: "mhz850",
-    type: "text",
+    type: "text"
   },
   {
     name: "1710MHz",
     formControl: "mhz1700",
-    type: "text",
+    type: "text"
   },
   {
     name: "1850MHz",
     formControl: "mhz1900",
-    type: "text",
+    type: "text"
   },
   {
     name: "2500MHz",
     formControl: "mhz2500",
-    type: "text",
+    type: "text"
   },
   {
     name: "SAR",
@@ -173,13 +173,13 @@ export class TableChequeo implements OnInit {
   chequeos: Chequeo;
   consultas: Consulta;
   listaChequeos: Chequeo[] = [];
-  templateTable: UntypedFormGroup;
+  templateTable: FormGroup;
   control: UntypedFormArray;
 
   //Variable para el almacenamiento local de la tabla
   private localStorageService: Storage;
 
-  constructor(private tableService: TablesServiceChequeo, private tableServiceTAC: TablesServiceTAC, private fb: UntypedFormBuilder) {
+  constructor(private tableService: TablesServiceChequeo, private tableServiceTAC: TablesServiceTAC, private fb: FormBuilder) {
     this.localStorageService = localStorage;
   }
 
@@ -204,7 +204,7 @@ export class TableChequeo implements OnInit {
     this.control = this.templateTable.get("tableRows") as UntypedFormArray;
   }
 
-  initiateForm(chequeo?: Chequeo): UntypedFormGroup {
+  initiateForm(chequeo?: Chequeo): FormGroup {
     if (chequeo != undefined) {
       return this.fb.group({
         idLc: [chequeo.idLc],
@@ -308,7 +308,7 @@ export class TableChequeo implements OnInit {
     control.push(this.addRowDetails(chequeo));
   }
 
-  deleteRow(index: number, group: UntypedFormGroup) {
+  deleteRow(index: number, group: FormGroup) {
     const control = this.templateTable.get("tableRows") as UntypedFormArray;
     control.removeAt(index);
 
@@ -317,12 +317,12 @@ export class TableChequeo implements OnInit {
       .subscribe((check: Chequeo[]) => this.setCurrentTable(check));
   }
 
-  editRow(group: UntypedFormGroup) {
+  editRow(group: FormGroup) {
     group.get("isEditable").setValue(true);
     group.get("new").setValue(false);
   }
 
-  doneRow(group: UntypedFormGroup) {
+  doneRow(group: FormGroup) {
     group.get("isEditable").setValue(false);
 
     if (group.get("new").value) {

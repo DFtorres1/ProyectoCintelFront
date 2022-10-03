@@ -18,7 +18,6 @@
             <!-- BLOQUE DE CODIGO PARA EDITAR CADA CAMPO -->
             <tr *ngIf="group.get('isEditable').value" [formGroupName]="i">
               <td *ngFor="let field of formFields">
-
                 <mat-form-field *ngIf="field.type == 'text'">
                   <input
                     matInput
@@ -26,10 +25,14 @@
                     [formControlName]="field.formControl"
                   />
                 </mat-form-field>
-                
+
                 <mat-form-field *ngIf="field.type == 'date'">
                   <mat-label>Fecha</mat-label>
-                  <input matInput [matDatepicker]="picker" />
+                  <input
+                    matInput
+                    [matDatepicker]="picker"
+                    [formControlName]="field.formControl"
+                  />
                   <mat-hint>MM/DD/YYYY</mat-hint>
                   <mat-datepicker-toggle
                     matSuffix
@@ -37,7 +40,7 @@
                   ></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
-                
+
               </td>
 
               <td>
@@ -49,6 +52,7 @@
             </tr>
 
             <tr *ngIf="!group.get('isEditable').value">
+              
               <td *ngFor="let field of formFields">
                 {{ group.get(field.formControl).value }}
               </td>

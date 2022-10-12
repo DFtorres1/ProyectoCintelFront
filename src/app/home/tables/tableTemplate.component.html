@@ -1,49 +1,82 @@
 <div class="tables">
   <p class="titlestyle">{{ nametl }}</p>
-<section class="main-container mat-elevation-z8" tabindex="0">
-  <form  [formGroup]="templateTable">
-    <table  class="table table-border" [ngClass]="{'table-dark': mode}">
-      <thead >
-        <tr >
-          <th class="tablec" *ngFor="let field of formFields">{{field.name}}
-            <span class="ui-column-resizer" dragableColumn> </span>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <ng-container
-          formArrayName="tableRows"
-          *ngFor="let group of getFormControls.controls;
-          let i = index;">
-
-          <tr *ngIf="group.get('isEditable').value" [formGroupName]="i">
-            <td *ngFor="let field of formFields">
-              <mat-form-field>
-                <input matInput type="text" [formControlName]="field.formControl"/>
-              </mat-form-field>
-            </td>
-
-            <td>
-              <mat-icon class="delete" (click)="deleteRow(i, group)">delete_forever</mat-icon>
-              <mat-icon class="done" (click)="doneRow(group)">done</mat-icon>
-            </td>
+  <section class="main-container mat-elevation-z8" tabindex="0">
+    <form [formGroup]="templateTable" ngNativeValidate>
+      <table class="table table-border" [ngClass]="{ 'table-dark': mode }">
+        <thead>
+          <tr>
+            <th class="tablec" *ngFor="let field of formFields">
+              {{ field.name }}
+              <span class="ui-column-resizer" dragableColumn> </span>
+            </th>
           </tr>
+        </thead>
+        <tbody>
+          <ng-container
+            formArrayName="tableRows"
+            *ngFor="let group of getFormControls.controls; let i = index"
+          >
+            <!-- BLOQUE DE CODIGO PARA EDITAR CADA CAMPO -->
+            <tr *ngIf="group.get('isEditable').value" [formGroupName]="i">
+              <td *ngFor="let field of formFields">
+                <mat-form-field *ngIf="field.type == 'text'">
+                  <input
+                    matInput
+                    type="text"
+                    [formControlName]="field.formControl"
+                  />
+                </mat-form-field>
 
-          <tr *ngIf="!group.get('isEditable').value">
-            <td *ngFor="let field of formFields">
-              {{group.get(field.formControl).value}}
-            </td>
-            <mat-icon class="edit" (click)="editRow(group)">edit</mat-icon>
-          </tr>
+                <mat-form-field *ngIf="field.type == 'date'">
+                  <mat-label>Fecha</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="picker"
+                    [formControlName]="field.formControl"
+                  />
+                  <mat-hint>MM/DD/YYYY</mat-hint>
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                
+                <!--
+                  
+                <mat-form-field *ngIf="field.type == 'toggle'">
+                  <mat-slide-toggle mat-slide-toggle [required]="false" [formControlName]="field.formControl">
+                  </mat-slide-toggle>
+                </mat-form-field>
 
-        </ng-container>
-      </tbody>
-    </table>
-    <div class="action-container">
-      <button class="button"  type="submit" (click)="addRow()">Agregar columna</button>
-     <!-- <button class="button"  [disabled]="templateTable.invalid" type="submit" (click)="submitForm()">Submit</button>-->
-    </div>
-  </form>
-</section>
+                -->
+              </td>
+
+              <td>
+                <mat-icon class="delete" (click)="deleteRow(i, group)"
+                  >delete_forever</mat-icon
+                >
+                <mat-icon class="done" (click)="doneRow(group)">done</mat-icon>
+              </td>
+            </tr>
+
+            <tr *ngIf="!group.get('isEditable').value">
+              
+              <td *ngFor="let field of formFields">
+                {{ group.get(field.formControl).value }}
+              </td>
+              <mat-icon class="edit" (click)="editRow(group)">edit</mat-icon>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+      <div class="action-container">
+        <button class="button" type="submit" (click)="addRow()">
+          Agregar columna
+        </button>
+        <!-- <button class="button"  [disabled]="templateTable.invalid" type="submit" (click)="submitForm()">Submit</button>-->
+      </div>
+    </form>
+  </section>
 <img src="assets/Logo-CRC-PNG.png" alt="" class="bodyimg">
 </div>

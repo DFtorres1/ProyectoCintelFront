@@ -19,25 +19,45 @@
           <mat-nav-list class="functionButtonsMat">
             <div class="functionButtons">
               <mat-nav-list>
-                <button class="allButton" mat-raised-button type="button" (click)="showChequeo()">
+                <button
+                  class="allButton"
+                  mat-raised-button
+                  type="button"
+                  (click)="showChequeo()"
+                >
                   Lista de chequeo
                 </button>
               </mat-nav-list>
 
               <mat-nav-list>
-                <button class="allButton" mat-raised-button type="button" (click)="showTAC()">
+                <button
+                  class="allButton"
+                  mat-raised-button
+                  type="button"
+                  (click)="showTAC()"
+                >
                   Consulta de TAC
                 </button>
               </mat-nav-list>
 
               <mat-nav-list>
-                <button class="allButton" mat-raised-button type="button" (click)="showConsolidado()">
+                <button
+                  class="allButton"
+                  mat-raised-button
+                  type="button"
+                  (click)="showConsolidado()"
+                >
                   Consolidado
                 </button>
               </mat-nav-list>
 
               <mat-nav-list *ngIf="access">
-                <button class="allButton" mat-raised-button type="button" (click)="showRegistro()">
+                <button
+                  class="allButton"
+                  mat-raised-button
+                  type="button"
+                  (click)="showRegistro()"
+                >
                   Registrar usuarios
                 </button>
               </mat-nav-list>
@@ -67,9 +87,8 @@
   <mat-sidenav-content *ngIf="consolidado == true">
     <tableConsolidado></tableConsolidado>
   </mat-sidenav-content>
-
   <mat-sidenav-content *ngIf="registro == true">
     <tableRegistro></tableRegistro>
   </mat-sidenav-content>
-
+  
 </mat-sidenav-container>

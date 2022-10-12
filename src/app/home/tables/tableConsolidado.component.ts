@@ -20,7 +20,7 @@ const Columns = [
   {
     name: "Fecha Entrada CRC",
     formControl: "crcentryDate",
-    type: "text",
+    type: "date",
   },
   {
     name: "Responsable",
@@ -30,32 +30,32 @@ const Columns = [
   {
     name: "Fecha Límite",
     formControl: "deadlineDate",
-    type: "text",
+    type: "date",
   },
   {
     name: "Vencimiento CRC",
     formControl: "crcexpiration",
-    type: "text",
+    type: "date",
   },
   {
     name: "Vencimiento CINTEL",
     formControl: "cintelExpiration",
-    type: "text",
+    type: "date",
   },
   {
     name: "Fecha Entrada CINTEL",
     formControl: "cintelEntryDate",
-    type: "text",
+    type: "date",
   },
   {
     name: "Fecha Entrada Responsable",
     formControl: "responsibleEntryDate",
-    type: "text",
+    type: "date",
   },
   {
     name: "Fecha Salida Responsable",
     formControl: "responsibleExitDate",
-    type: "text",
+    type: "date",
   },
   {
     name: "Días Hábiles",
@@ -90,12 +90,12 @@ const Columns = [
   {
     name: "Fecha Revisión",
     formControl: "reviewDate",
-    type: "text",
+    type: "date",
   },
   {
     name: "Fecha Salida CINTEL",
     formControl: "cintelExitDate",
-    type: "text",
+    type: "date",
   },
   {
     name: "Observaciones Responsable",
@@ -294,7 +294,7 @@ export class TableConsolidado implements OnInit {
       };
 
       this.chequeos = {
-        settled: group.get("settled").value,
+        settled: group.get("entrySettlement").value,
         entryDate: null,
         userType: null,
         brand: null,
@@ -326,13 +326,13 @@ export class TableConsolidado implements OnInit {
         agent: group.get("responsible").value
       }
 
-      this.tableChequeoService.postListaDeChequeo(this.chequeos);
+      this.tableChequeoService.postListaDeChequeo(this.chequeos).subscribe();
 
       this.tableService
         .postConsolidadoGeneral(this.consolidados)
         .subscribe((consolidado: Consolidado[]) => {
           this.setCurrentTable(consolidado);
-          group.get("idCg").setValue(consolidado[-1].idCg);
+          this.ngOnInit;
         });
     } else {
       this.consolidados = {

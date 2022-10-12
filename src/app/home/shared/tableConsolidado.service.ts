@@ -15,10 +15,9 @@ export class TablesService {
   constructor(private http: HttpClient) {}
   result: any;
   private basePath = `${environment.apiUrl}/Consolidado/`;
-  // private basePath = `${environment.apiUrl}/Lista`;
 
   getConsolidadoGeneral(): Observable<Consolidado[]> {
-    const request = this.http.get<Consolidado[]>(this.basePath + "all");
+    const request = this.http.get<Consolidado[]>(this.basePath + "all/");
     return request;
   }
   

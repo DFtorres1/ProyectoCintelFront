@@ -1,45 +1,98 @@
 <html>
-<head>
-  <link rel="stylesheet" href="login.component.css">
-</head>
-<body>
-  <div>
+  <head>
+    <link rel="stylesheet" href="login.component.css" />
+  </head>
+  <body>
     <div>
-      <mat-card class="form-body">
-        <mat-card-title>
-          <img src="assets/LOGO-CINTEL.png" alt="login">
-        </mat-card-title>
-        <mat-card-content class="login-form">
-          <a>
-             Email
-          </a>
-          <form id="login-form" #lForm="ngForm" [formGroup]="loginForm" (ngSubmit)="submitLogin()" novalidate>
-            <mat-form-field style="width: 100%;" [ngClass]="{'mat-input-invalid': submitted && error?.code == 1}">
-              <input  type="text" formControlName="username" placeholder=" Ingresa tu email " />
-              <mat-hint style="color: red; "
-                *ngIf="submitted && error?.code == 1 && !loginForm.controls.username.hasError('required')">
-                {{error.message}}</mat-hint>
-              <mat-hint style="color: red;" *ngIf="submitted && loginForm.controls.username.hasError('required')">Field
-                is mandatory</mat-hint>
-            </mat-form-field>
-            <a>
-               Contraseña
-            </a>
-            <mat-form-field style="width: 100%;" [ngClass]="{'mat-input-invalid': submitted && error?.code == 2}">
-              <input  type="password" formControlName="password" placeholder=" Ingresa tu contraseña " />
-              <mat-hint style="color: red;"
-                *ngIf="submitted && error?.code == 2 && !loginForm.controls.password.hasError('required')">
-                {{error.message}}</mat-hint>
-              <mat-hint style="color: red;" *ngIf="submitted && loginForm.controls.password.hasError('required')">Field
-                is mandatory</mat-hint>
-            </mat-form-field>
-          </form>
-        </mat-card-content>
-        <mat-card-actions style="text-align: right;">
-          <button class="button1" mat-raised-button type="submit" form="login-form"> Iniciar Sesión </button>
-        </mat-card-actions>
-      </mat-card>
+      <div>
+        <mat-card class="form-body">
+          <mat-card-title>
+            <img src="assets/LOGO-CINTEL.png" alt="login" />
+          </mat-card-title>
+          <mat-card-content class="login-form">
+            <a> Usuario </a>
+            <form
+              id="login-form"
+              #lForm="ngForm"
+              [formGroup]="loginForm"
+              (ngSubmit)="submitLogin()"
+              novalidate
+            >
+              <mat-form-field
+                style="width: 100%"
+                [ngClass]="{
+                  'mat-input-invalid': submitted && error?.code == 1
+                }"
+              >
+                <input
+                  type="text"
+                  formControlName="username"
+                  placeholder=" Ingresar usuario "
+                />
+                <mat-hint
+                  style="color: red"
+                  *ngIf="
+                    submitted &&
+                    error?.code == 1 &&
+                    !loginForm.controls.username.hasError('required')
+                  "
+                >
+                  {{ error.message }}</mat-hint
+                >
+                <mat-hint
+                  style="color: red"
+                  *ngIf="
+                    submitted &&
+                    loginForm.controls.username.hasError('required')
+                  "
+                  >Field is mandatory</mat-hint
+                >
+              </mat-form-field>
+              <a> Contraseña </a>
+              <mat-form-field
+                style="width: 100%"
+                [ngClass]="{
+                  'mat-input-invalid': submitted && error?.code == 2
+                }"
+              >
+                <input
+                  type="password"
+                  formControlName="password"
+                  placeholder=" Ingresar contraseña "
+                />
+                <mat-hint
+                  style="color: red"
+                  *ngIf="
+                    submitted &&
+                    error?.code == 2 &&
+                    !loginForm.controls.password.hasError('required')
+                  "
+                >
+                  {{ error.message }}</mat-hint
+                >
+                <mat-hint
+                  style="color: red"
+                  *ngIf="
+                    submitted &&
+                    loginForm.controls.password.hasError('required')
+                  "
+                  >Field is mandatory</mat-hint
+                >
+              </mat-form-field>
+            </form>
+          </mat-card-content>
+          <mat-card-actions style="text-align: right">
+            <button
+              class="button1"
+              mat-raised-button
+              type="submit"
+              form="login-form"
+            >
+              Iniciar Sesión
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
     </div>
-  </div>
-</body>
+  </body>
 </html>

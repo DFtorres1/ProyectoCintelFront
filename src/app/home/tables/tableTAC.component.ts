@@ -1,5 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
+import {
+  UntypedFormArray,
+  UntypedFormBuilder,
+  UntypedFormGroup,
+} from "@angular/forms";
 import { Consulta } from "../../core/models/tables.models/consulta.model";
 import { TablesServiceTAC } from "../shared/tableConsultaTAC.service";
 
@@ -102,11 +106,15 @@ export class TableTAC implements OnInit {
   listaConsulta: Consulta[] = [];
   templateTable: UntypedFormGroup;
   control: UntypedFormArray;
+  validform = true;
 
   //Variable para el almacenamiento local de la tabla
   private localStorageService: Storage;
 
-  constructor(private tableService: TablesServiceTAC, private fb: UntypedFormBuilder) {
+  constructor(
+    private tableService: TablesServiceTAC,
+    private fb: UntypedFormBuilder
+  ) {
     this.localStorageService = localStorage;
   }
 
@@ -217,56 +225,63 @@ export class TableTAC implements OnInit {
   }
 
   doneRow(group: UntypedFormGroup) {
-    group.get("isEditable").setValue(false);
+    var tactmp = JSON.stringify(group.get("tac").value);
 
-    if (group.get("new").value) {
-      this.consultas = {
-        queryDate: group.get("queryDate").value,
-        responsible: group.get("responsible").value,
-        tac: group.get("tac").value,
-        brand: group.get("brand").value,
-        model: group.get("model").value,
-        gsmabrand: group.get("gsmabrand").value,
-        gsmamodel: group.get("gsmamodel").value,
-        crctacapp: group.get("crctacapp").value,
-        brand_C: group.get("brand_C").value,
-        model_C: group.get("model_C").value,
-        manufacturer: group.get("manufacturer").value,
-        question: group.get("question").value,
-        answer: group.get("answer").value,
-        applicantEMail: group.get("applicantEMail").value,
-        consultationDay: group.get("consultationDay").value,
-      };
+    if (tactmp.length - 2 == 8) {
+      group.get("isEditable").setValue(false);
+      this.validform = true;
+      if (group.get("new").value) {
+        this.consultas = {
+          queryDate: group.get("queryDate").value,
+          responsible: group.get("responsible").value,
+          tac: group.get("tac").value,
+          brand: group.get("brand").value,
+          model: group.get("model").value,
+          gsmabrand: group.get("gsmabrand").value,
+          gsmamodel: group.get("gsmamodel").value,
+          crctacapp: group.get("crctacapp").value,
+          brand_C: group.get("brand_C").value,
+          model_C: group.get("model_C").value,
+          manufacturer: group.get("manufacturer").value,
+          question: group.get("question").value,
+          answer: group.get("answer").value,
+          applicantEMail: group.get("applicantEMail").value,
+          consultationDay: group.get("consultationDay").value,
+        };
 
-      this.tableService
-        .postConsultaDeTAC(this.consultas)
-        .subscribe((consulta: Consulta[]) => {
-          this.setCurrentTable(consulta);
-          this.ngOnInit();
-        });
+        this.tableService
+          .postConsultaDeTAC(this.consultas)
+          .subscribe((consulta: Consulta[]) => {
+            this.setCurrentTable(consulta);
+            this.ngOnInit();
+          });
+      } else {
+        this.consultas = {
+          idCt: group.get("idCt").value,
+          queryDate: group.get("queryDate").value,
+          responsible: group.get("responsible").value,
+          tac: group.get("tac").value,
+          brand: group.get("brand").value,
+          model: group.get("model").value,
+          gsmabrand: group.get("gsmabrand").value,
+          gsmamodel: group.get("gsmamodel").value,
+          crctacapp: group.get("crctacapp").value,
+          brand_C: group.get("brand_C").value,
+          model_C: group.get("model_C").value,
+          manufacturer: group.get("manufacturer").value,
+          question: group.get("question").value,
+          answer: group.get("answer").value,
+          applicantEMail: group.get("applicantEMail").value,
+          consultationDay: group.get("consultationDay").value,
+        };
+
+        this.tableService
+          .putConsultaDeTAC(this.consultas)
+          .subscribe((consulta: Consulta[]) => this.setCurrentTable(consulta));
+      }
+      this.ngOnInit();
     } else {
-      this.consultas = {
-        idCt: group.get("idCt").value,
-        queryDate: group.get("queryDate").value,
-        responsible: group.get("responsible").value,
-        tac: group.get("tac").value,
-        brand: group.get("brand").value,
-        model: group.get("model").value,
-        gsmabrand: group.get("gsmabrand").value,
-        gsmamodel: group.get("gsmamodel").value,
-        crctacapp: group.get("crctacapp").value,
-        brand_C: group.get("brand_C").value,
-        model_C: group.get("model_C").value,
-        manufacturer: group.get("manufacturer").value,
-        question: group.get("question").value,
-        answer: group.get("answer").value,
-        applicantEMail: group.get("applicantEMail").value,
-        consultationDay: group.get("consultationDay").value,
-      };
-
-      this.tableService
-        .putConsultaDeTAC(this.consultas)
-        .subscribe((consulta: Consulta[]) => this.setCurrentTable(consulta));
+      this.validform = false;
     }
   }
 

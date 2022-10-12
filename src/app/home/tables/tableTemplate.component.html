@@ -55,12 +55,14 @@
                 <mat-icon class="delete" (click)="deleteRow(i, group)"
                   >delete_forever</mat-icon
                 >
+                <mat-label *ngIf="!validform">
+                  Radicado o TAC no corresponden</mat-label
+                >
                 <mat-icon class="done" (click)="doneRow(group)">done</mat-icon>
               </td>
             </tr>
 
             <tr *ngIf="!group.get('isEditable').value">
-              
               <td *ngFor="let field of formFields">
                 {{ group.get(field.formControl).value }}
               </td>

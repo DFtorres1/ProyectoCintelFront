@@ -180,6 +180,7 @@ export class TableChequeo implements OnInit {
   listaChequeos: Chequeo[] = [];
   templateTable: FormGroup;
   control: UntypedFormArray;
+  validform = true;
 
   //Variable para el almacenamiento local de la tabla
   private localStorageService: Storage;
@@ -332,157 +333,165 @@ export class TableChequeo implements OnInit {
   }
 
   doneRow(group: FormGroup) {
-    group.get("isEditable").setValue(false);
+    var settledtmp = JSON.stringify(group.get("settled").value);
+    var tactmp = JSON.stringify(group.get("tac").value);
 
-    if (group.get("new").value) {
-      this.chequeos = {
-        settled: group.get("settled").value,
-        entryDate: group.get("entryDate").value,
-        userType: group.get("userType").value,
-        brand: group.get("brand").value,
-        model: group.get("model").value,
-        tac: group.get("tac").value,
-        tacquery: group.get("tacquery").value,
-        label: group.get("label").value,
-        fcc: group.get("fcc").value === ("true" || "1"),
-        anatel: group.get("anatel").value === ("true" || "1"),
-        ic: group.get("ic").value === ("true" || "1"),
-        ncc: group.get("ncc").value === ("true" || "1"),
-        ofca: group.get("ofca").value === ("true" || "1"),
-        mtc: group.get("mtc").value === ("true" || "1"),
-        mic: group.get("mic").value === ("true" || "1"),
-        cccCo: group.get("cccCo").value === ("true" || "1"),
-        ce: group.get("ce").value === ("true" || "1"),
-        others: group.get("others").value === ("true" || "1"),
-        mhz700: group.get("mhz700").value === ("true" || "1"),
-        mhz850: group.get("mhz850").value === ("true" || "1"),
-        mhz1700: group.get("mhz1700").value === ("true" || "1"),
-        mhz1900: group.get("mhz1900").value === ("true" || "1"),
-        mhz2500: group.get("mhz2500").value === ("true" || "1"),
-        sar: group.get("sar").value === ("true" || "1"),
-        certifyingEntity: group.get("certifyingEntity").value,
-        certifierNumber: group.get("certifierNumber").value,
-        laboratory: group.get("laboratory").value,
-        answer: group.get("answer").value,
-        complements: group.get("complements").value,
-      };
+    if (settledtmp.length - 2 == 10 && tactmp.length - 2 == 8) {
+      group.get("isEditable").setValue(false);
+      this.validform = true;
+      if (group.get("new").value) {
+        this.chequeos = {
+          settled: group.get("settled").value,
+          entryDate: group.get("entryDate").value,
+          userType: group.get("userType").value,
+          brand: group.get("brand").value,
+          model: group.get("model").value,
+          tac: group.get("tac").value,
+          tacquery: group.get("tacquery").value,
+          label: group.get("label").value,
+          fcc: group.get("fcc").value === ("true" || "1"),
+          anatel: group.get("anatel").value === ("true" || "1"),
+          ic: group.get("ic").value === ("true" || "1"),
+          ncc: group.get("ncc").value === ("true" || "1"),
+          ofca: group.get("ofca").value === ("true" || "1"),
+          mtc: group.get("mtc").value === ("true" || "1"),
+          mic: group.get("mic").value === ("true" || "1"),
+          cccCo: group.get("cccCo").value === ("true" || "1"),
+          ce: group.get("ce").value === ("true" || "1"),
+          others: group.get("others").value === ("true" || "1"),
+          mhz700: group.get("mhz700").value === ("true" || "1"),
+          mhz850: group.get("mhz850").value === ("true" || "1"),
+          mhz1700: group.get("mhz1700").value === ("true" || "1"),
+          mhz1900: group.get("mhz1900").value === ("true" || "1"),
+          mhz2500: group.get("mhz2500").value === ("true" || "1"),
+          sar: group.get("sar").value === ("true" || "1"),
+          certifyingEntity: group.get("certifyingEntity").value,
+          certifierNumber: group.get("certifierNumber").value,
+          laboratory: group.get("laboratory").value,
+          answer: group.get("answer").value,
+          complements: group.get("complements").value,
+        };
 
-      this.consultas = {
-        queryDate: null,
-        responsible: null,
-        tac: group.get("tac").value,
-        brand: group.get("brand").value,
-        model: group.get("model").value,
-        gsmabrand: null,
-        gsmamodel: null,
-        crctacapp: null,
-        brand_C: null,
-        model_C: null,
-        manufacturer: null,
-        question: null,
-        answer: null,
-        applicantEMail: null,
-        consultationDay: null,
-      };
+        this.consultas = {
+          queryDate: null,
+          responsible: null,
+          tac: group.get("tac").value,
+          brand: group.get("brand").value,
+          model: group.get("model").value,
+          gsmabrand: null,
+          gsmamodel: null,
+          crctacapp: null,
+          brand_C: null,
+          model_C: null,
+          manufacturer: null,
+          question: null,
+          answer: null,
+          applicantEMail: null,
+          consultationDay: null,
+        };
 
-      this.tableService
-        .postListaDeChequeo(this.chequeos)
-        .subscribe((check: Chequeo[]) => this.setCurrentTable(check));
+        this.tableService
+          .postListaDeChequeo(this.chequeos)
+          .subscribe((check: Chequeo[]) => this.setCurrentTable(check));
 
-      this.tableServiceTAC.postConsultaDeTAC(this.consultas).subscribe();
-    } else if (group.get("lastTac").value == group.get("tac").value) {
-      this.chequeos = {
-        idLc: group.get("idLc").value,
-        settled: group.get("settled").value,
-        entryDate: group.get("entryDate").value,
-        userType: group.get("userType").value,
-        brand: group.get("brand").value,
-        model: group.get("model").value,
-        tac: group.get("tac").value,
-        tacquery: group.get("tacquery").value,
-        label: group.get("label").value,
-        fcc: group.get("fcc").value === ("true" || "1"),
-        anatel: group.get("anatel").value === ("true" || "1"),
-        ic: group.get("ic").value === ("true" || "1"),
-        ncc: group.get("ncc").value === ("true" || "1"),
-        ofca: group.get("ofca").value === ("true" || "1"),
-        mtc: group.get("mtc").value === ("true" || "1"),
-        mic: group.get("mic").value === ("true" || "1"),
-        cccCo: group.get("cccCo").value === ("true" || "1"),
-        ce: group.get("ce").value === ("true" || "1"),
-        others: group.get("others").value === ("true" || "1"),
-        mhz700: group.get("mhz700").value === ("true" || "1"),
-        mhz850: group.get("mhz850").value === ("true" || "1"),
-        mhz1700: group.get("mhz1700").value === ("true" || "1"),
-        mhz1900: group.get("mhz1900").value === ("true" || "1"),
-        mhz2500: group.get("mhz2500").value === ("true" || "1"),
-        sar: group.get("sar").value === ("true" || "1"),
-        certifyingEntity: group.get("certifyingEntity").value,
-        certifierNumber: group.get("certifierNumber").value,
-        laboratory: group.get("laboratory").value,
-        answer: group.get("answer").value,
-        complements: group.get("complements").value,
-      };
+        this.tableServiceTAC.postConsultaDeTAC(this.consultas).subscribe();
+      } else if (group.get("lastTac").value == group.get("tac").value) {
+        this.chequeos = {
+          idLc: group.get("idLc").value,
+          settled: group.get("settled").value,
+          entryDate: group.get("entryDate").value,
+          userType: group.get("userType").value,
+          brand: group.get("brand").value,
+          model: group.get("model").value,
+          tac: group.get("tac").value,
+          tacquery: group.get("tacquery").value,
+          label: group.get("label").value,
+          fcc: group.get("fcc").value === ("true" || "1"),
+          anatel: group.get("anatel").value === ("true" || "1"),
+          ic: group.get("ic").value === ("true" || "1"),
+          ncc: group.get("ncc").value === ("true" || "1"),
+          ofca: group.get("ofca").value === ("true" || "1"),
+          mtc: group.get("mtc").value === ("true" || "1"),
+          mic: group.get("mic").value === ("true" || "1"),
+          cccCo: group.get("cccCo").value === ("true" || "1"),
+          ce: group.get("ce").value === ("true" || "1"),
+          others: group.get("others").value === ("true" || "1"),
+          mhz700: group.get("mhz700").value === ("true" || "1"),
+          mhz850: group.get("mhz850").value === ("true" || "1"),
+          mhz1700: group.get("mhz1700").value === ("true" || "1"),
+          mhz1900: group.get("mhz1900").value === ("true" || "1"),
+          mhz2500: group.get("mhz2500").value === ("true" || "1"),
+          sar: group.get("sar").value === ("true" || "1"),
+          certifyingEntity: group.get("certifyingEntity").value,
+          certifierNumber: group.get("certifierNumber").value,
+          laboratory: group.get("laboratory").value,
+          answer: group.get("answer").value,
+          complements: group.get("complements").value,
+        };
 
-      this.tableService
-        .putListaDeChequeo(this.chequeos)
-        .subscribe((check: Chequeo[]) => this.setCurrentTable(check));
+        this.tableService
+          .putListaDeChequeo(this.chequeos)
+          .subscribe((check: Chequeo[]) => this.setCurrentTable(check));
+      } else {
+        this.chequeos = {
+          settled: group.get("settled").value,
+          entryDate: group.get("entryDate").value,
+          userType: group.get("userType").value,
+          brand: group.get("brand").value,
+          model: group.get("model").value,
+          tac: group.get("tac").value,
+          tacquery: group.get("tacquery").value,
+          label: group.get("label").value,
+          fcc: group.get("fcc").value === ("true" || "1"),
+          anatel: group.get("anatel").value === ("true" || "1"),
+          ic: group.get("ic").value === ("true" || "1"),
+          ncc: group.get("ncc").value === ("true" || "1"),
+          ofca: group.get("ofca").value === ("true" || "1"),
+          mtc: group.get("mtc").value === ("true" || "1"),
+          mic: group.get("mic").value === ("true" || "1"),
+          cccCo: group.get("cccCo").value === ("true" || "1"),
+          ce: group.get("ce").value === ("true" || "1"),
+          others: group.get("others").value === ("true" || "1"),
+          mhz700: group.get("mhz700").value === ("true" || "1"),
+          mhz850: group.get("mhz850").value === ("true" || "1"),
+          mhz1700: group.get("mhz1700").value === ("true" || "1"),
+          mhz1900: group.get("mhz1900").value === ("true" || "1"),
+          mhz2500: group.get("mhz2500").value === ("true" || "1"),
+          sar: group.get("sar").value === ("true" || "1"),
+          certifyingEntity: group.get("certifyingEntity").value,
+          certifierNumber: group.get("certifierNumber").value,
+          laboratory: group.get("laboratory").value,
+          answer: group.get("answer").value,
+          complements: group.get("complements").value,
+        };
+
+        this.consultas = {
+          queryDate: null,
+          responsible: null,
+          tac: group.get("tac").value,
+          brand: group.get("brand").value,
+          model: group.get("model").value,
+          gsmabrand: null,
+          gsmamodel: null,
+          crctacapp: null,
+          brand_C: null,
+          model_C: null,
+          manufacturer: null,
+          question: null,
+          answer: null,
+          applicantEMail: null,
+          consultationDay: null,
+        };
+
+        this.tableServiceTAC.postConsultaDeTAC(this.consultas).subscribe();
+
+        this.tableService
+          .putListaDeChequeo(this.chequeos)
+          .subscribe((check: Chequeo[]) => this.setCurrentTable(check));
+      }
+      this.ngOnInit();
     } else {
-      this.chequeos = {
-        settled: group.get("settled").value,
-        entryDate: group.get("entryDate").value,
-        userType: group.get("userType").value,
-        brand: group.get("brand").value,
-        model: group.get("model").value,
-        tac: group.get("tac").value,
-        tacquery: group.get("tacquery").value,
-        label: group.get("label").value,
-        fcc: group.get("fcc").value === ("true" || "1"),
-        anatel: group.get("anatel").value === ("true" || "1"),
-        ic: group.get("ic").value === ("true" || "1"),
-        ncc: group.get("ncc").value === ("true" || "1"),
-        ofca: group.get("ofca").value === ("true" || "1"),
-        mtc: group.get("mtc").value === ("true" || "1"),
-        mic: group.get("mic").value === ("true" || "1"),
-        cccCo: group.get("cccCo").value === ("true" || "1"),
-        ce: group.get("ce").value === ("true" || "1"),
-        others: group.get("others").value === ("true" || "1"),
-        mhz700: group.get("mhz700").value === ("true" || "1"),
-        mhz850: group.get("mhz850").value === ("true" || "1"),
-        mhz1700: group.get("mhz1700").value === ("true" || "1"),
-        mhz1900: group.get("mhz1900").value === ("true" || "1"),
-        mhz2500: group.get("mhz2500").value === ("true" || "1"),
-        sar: group.get("sar").value === ("true" || "1"),
-        certifyingEntity: group.get("certifyingEntity").value,
-        certifierNumber: group.get("certifierNumber").value,
-        laboratory: group.get("laboratory").value,
-        answer: group.get("answer").value,
-        complements: group.get("complements").value,
-      };
-
-      this.consultas = {
-        queryDate: null,
-        responsible: null,
-        tac: group.get("tac").value,
-        brand: group.get("brand").value,
-        model: group.get("model").value,
-        gsmabrand: null,
-        gsmamodel: null,
-        crctacapp: null,
-        brand_C: null,
-        model_C: null,
-        manufacturer: null,
-        question: null,
-        answer: null,
-        applicantEMail: null,
-        consultationDay: null,
-      };
-
-      this.tableServiceTAC.postConsultaDeTAC(this.consultas).subscribe();
-
-      this.tableService
-        .putListaDeChequeo(this.chequeos)
-        .subscribe((check: Chequeo[]) => this.setCurrentTable(check));
+      this.validform = false;
     }
   }
 

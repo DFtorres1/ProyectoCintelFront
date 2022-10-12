@@ -71,6 +71,7 @@ export class TableRegistro implements OnInit {
   listaUsuarios: Users[] = [];
   templateTable: UntypedFormGroup;
   control: UntypedFormArray;
+  validform = true;
 
   //Variable para el almacenamiento local de la tabla
   private localStorageService: Storage;

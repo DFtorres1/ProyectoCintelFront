@@ -135,6 +135,7 @@ export class TableConsolidado implements OnInit {
   listaConsolidados: Consolidado[] = [];
   templateTable: FormGroup;
   control: FormArray;
+  validform = true;
 
   //Variable para el almacenamiento local de la tabla
   private localStorageService: Storage;
@@ -364,6 +365,7 @@ export class TableConsolidado implements OnInit {
           this.setCurrentTable(consolidado)
         );
     }
+    this.ngOnInit();
   }
 
   submitForm() {

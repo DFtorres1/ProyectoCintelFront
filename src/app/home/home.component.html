@@ -1,8 +1,8 @@
 <mat-sidenav-container class="container">
-  <div class="bodyimg">
-    <img src="assets/LOGO-CINTEL.png" alt="login" />
+  <div>
+    <img class="bodyimg" src="assets/Logo-CRC-PNG.png">
+    <img class="bodyimglogo" src="assets/LOGO-CINTEL.png">
   </div>
-  
   <mat-sidenav mode="side" opened class="contentContainer">
     <mat-nav-list>
       <mat-nav-list class="userInfo">
@@ -87,8 +87,8 @@
   <mat-sidenav-content *ngIf="consolidado == true">
     <tableConsolidado></tableConsolidado>
   </mat-sidenav-content>
-
   <mat-sidenav-content *ngIf="registro == true">
     <tableRegistro></tableRegistro>
   </mat-sidenav-content>
+  
 </mat-sidenav-container>

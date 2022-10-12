@@ -1,4 +1,5 @@
 <div class="tables">
+  <p class="titlestyle">{{ nametl }}</p>
   <section class="main-container mat-elevation-z8" tabindex="0">
     <form [formGroup]="templateTable" ngNativeValidate>
       <table class="table table-border" [ngClass]="{ 'table-dark': mode }">
@@ -40,7 +41,7 @@
                   ></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
-
+                
                 <!--
                   
                 <mat-form-field *ngIf="field.type == 'toggle'">
@@ -77,5 +78,5 @@
       </div>
     </form>
   </section>
-  <img src="../../../assets/Logo-CRC-PNG.png" />
+<img src="assets/Logo-CRC-PNG.png" alt="" class="bodyimg">
 </div>

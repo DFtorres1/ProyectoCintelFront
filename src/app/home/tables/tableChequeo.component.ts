@@ -167,6 +167,7 @@ const Columns = [
 })
 export class TableChequeo implements OnInit {
   //Definicion de las variables a usar
+  nametl: string;
   formFields = Columns;
   mode: boolean;
   touchedRows: any;
@@ -181,6 +182,7 @@ export class TableChequeo implements OnInit {
 
   constructor(private tableService: TablesServiceChequeo, private tableServiceTAC: TablesServiceTAC, private fb: FormBuilder) {
     this.localStorageService = localStorage;
+    this.nametl = 'LISTA DE CHEQUEO';
   }
 
   ngOnInit(): void {

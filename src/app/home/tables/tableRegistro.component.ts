@@ -60,6 +60,7 @@ const Columns = [
 })
 export class TableRegistro implements OnInit {
   //Definicion de las variables a usar
+  nametl: string;
   formFields = Columns;
   mode: boolean;
   touchedRows: any;
@@ -73,6 +74,7 @@ export class TableRegistro implements OnInit {
 
   constructor(private tableService: TablesService, private fb: FormBuilder) {
     this.localStorageService = localStorage;
+    this.nametl = 'REGISTRO DE USUARIOS';
   }
 
   ngOnInit(): void {

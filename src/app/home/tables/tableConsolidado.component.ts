@@ -127,6 +127,7 @@ const Columns = [
 })
 export class TableConsolidado implements OnInit {
   //Definicion de las variables a usar
+  nametl: string;
   formFields = Columns;
   mode: boolean;
   touchedRows: any;
@@ -141,6 +142,7 @@ export class TableConsolidado implements OnInit {
 
   constructor(private tableService: TablesService, private tableChequeoService: TablesServiceChequeo, private fb: FormBuilder) {
     this.localStorageService = localStorage;
+    this.nametl = 'CONSOLIDADO GENERAL';
   }
 
   ngOnInit(): void {

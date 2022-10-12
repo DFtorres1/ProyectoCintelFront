@@ -99,6 +99,7 @@ const Columns = [
 })
 export class TableTAC implements OnInit {
   //Definicion de las variables a usar
+  nametl: string;
   formFields = Columns;
   mode: boolean;
   touchedRows: any;
@@ -116,6 +117,7 @@ export class TableTAC implements OnInit {
     private fb: UntypedFormBuilder
   ) {
     this.localStorageService = localStorage;
+    this.nametl = 'CONSULTA TAC';
   }
 
   ngOnInit(): void {

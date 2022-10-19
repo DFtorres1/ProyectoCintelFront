@@ -1,6 +1,7 @@
 <div class="tables">
+  <p class="titlestyle">{{ nametl }}</p>
   <section class="main-container mat-elevation-z8" tabindex="0">
-    <form [formGroup]="templateTable">
+    <form [formGroup]="templateTable" ngNativeValidate>
       <table class="table table-border" [ngClass]="{ 'table-dark': mode }">
         <thead>
           <tr>
@@ -40,19 +41,29 @@
                   ></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
+                
+                <!--
+                  
+                <mat-form-field *ngIf="field.type == 'toggle'">
+                  <mat-slide-toggle mat-slide-toggle [required]="false" [formControlName]="field.formControl">
+                  </mat-slide-toggle>
+                </mat-form-field>
 
+                -->
               </td>
 
               <td>
                 <mat-icon class="delete" (click)="deleteRow(i, group)"
                   >delete_forever</mat-icon
                 >
+                <mat-label *ngIf="!validform">
+                  Radicado o TAC no corresponden</mat-label
+                >
                 <mat-icon class="done" (click)="doneRow(group)">done</mat-icon>
               </td>
             </tr>
 
             <tr *ngIf="!group.get('isEditable').value">
-              
               <td *ngFor="let field of formFields">
                 {{ group.get(field.formControl).value }}
               </td>
@@ -69,5 +80,5 @@
       </div>
     </form>
   </section>
-  <img src="../../../assets/Logo-CRC-PNG.png" />
+<img src="assets/Logo-CRC-PNG.png" alt="" class="bodyimg">
 </div>

@@ -10,7 +10,7 @@ import { Users } from "../core/models/tables.models/users.model";
 })
 export class HomeComponent implements OnInit {
   user: Users;
-  access: Boolean = false;
+  access = false;
   chequeo: Boolean = false;
   tac: Boolean = false;
   consolidado: Boolean = false;
@@ -27,8 +27,10 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.user = this.storageService.getCurrentUser();
 
-    if (this.user.role == "Administrador" || "Lider" || "Gerente") {
+    if (this.user.role == ("Administrador" || "Lider" || "Gerente")) {
       this.access = true;
+    } else {
+      this.access = false;
     }
   }
 

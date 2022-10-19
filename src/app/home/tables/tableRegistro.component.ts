@@ -64,6 +64,7 @@ const Columns = [
 })
 export class TableRegistro implements OnInit {
   //Definicion de las variables a usar
+  nametl: string;
   formFields = Columns;
   mode: boolean;
   touchedRows: any;
@@ -71,6 +72,7 @@ export class TableRegistro implements OnInit {
   listaUsuarios: Users[] = [];
   templateTable: UntypedFormGroup;
   control: UntypedFormArray;
+  validform = true;
 
   //Variable para el almacenamiento local de la tabla
   private localStorageService: Storage;
@@ -80,6 +82,7 @@ export class TableRegistro implements OnInit {
     private fb: UntypedFormBuilder
   ) {
     this.localStorageService = localStorage;
+    this.nametl = 'REGISTRO DE USUARIOS';
   }
 
   ngOnInit(): void {

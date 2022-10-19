@@ -192,7 +192,7 @@ export class TableChequeo implements OnInit {
     private fb: FormBuilder
   ) {
     this.localStorageService = localStorage;
-    this.nametl = 'LISTA DE CHEQUEO';
+    this.nametl = "LISTA DE CHEQUEO";
   }
 
   ngOnInit(): void {
@@ -338,6 +338,8 @@ export class TableChequeo implements OnInit {
     var settledtmp = JSON.stringify(group.get("settled").value);
     var tactmp = JSON.stringify(group.get("tac").value);
 
+    if (!group.get("new").value) {
+    }
     if (settledtmp.length - 2 == 10 && tactmp.length - 2 == 8) {
       group.get("isEditable").setValue(false);
       this.validform = true;
@@ -484,12 +486,11 @@ export class TableChequeo implements OnInit {
           applicantEMail: null,
           consultationDay: null,
         };
-
-        this.tableServiceTAC.postConsultaDeTAC(this.consultas).subscribe();
-
         this.tableService
           .putListaDeChequeo(this.chequeos)
           .subscribe((check: Chequeo[]) => this.setCurrentTable(check));
+
+        this.tableServiceTAC.postConsultaDeTAC(this.consultas).subscribe();
       }
       this.ngOnInit();
     } else {

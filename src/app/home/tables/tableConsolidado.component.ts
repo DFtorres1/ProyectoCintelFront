@@ -141,9 +141,13 @@ export class TableConsolidado implements OnInit {
   //Variable para el almacenamiento local de la tabla
   private localStorageService: Storage;
 
-  constructor(private tableService: TablesService, private tableChequeoService: TablesServiceChequeo, private fb: FormBuilder) {
+  constructor(
+    private tableService: TablesService,
+    private tableChequeoService: TablesServiceChequeo,
+    private fb: FormBuilder
+  ) {
     this.localStorageService = localStorage;
-    this.nametl = 'CONSOLIDADO GENERAL';
+    this.nametl = "CONSOLIDADO GENERAL";
   }
 
   ngOnInit(): void {
@@ -324,17 +328,16 @@ export class TableConsolidado implements OnInit {
         laboratory: null,
         answer: null,
         complements: null,
-        agent: group.get("responsible").value
-      }
+        agent: group.get("responsible").value,
+      };
 
       this.tableChequeoService.postListaDeChequeo(this.chequeos).subscribe();
 
       this.tableService
         .postConsolidadoGeneral(this.consolidados)
-        .subscribe((consolidado: Consolidado[]) => {
-          this.setCurrentTable(consolidado);
-          this.ngOnInit;
-        });
+        .subscribe((consolidado: Consolidado[]) =>
+          this.setCurrentTable(consolidado)
+        );
     } else {
       this.consolidados = {
         idCg: group.get("idCg").value,

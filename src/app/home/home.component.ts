@@ -28,18 +28,24 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.user = this.storageService.getCurrentUser();
 
-    if (
-      this.user.role ==
-      ("Administrador" ||
-        "Lider" ||
-        "Gerente" ||
-        "administrador" ||
-        "lider" ||
-        "gerente")
-    ) {
-      this.access = true;
-    } else {
-      this.access = false;
+    let authUsers = [
+      "Administrador",
+      "Lider",
+      "Gerente",
+      "administrador",
+      "lider",
+      "gerente",
+    ];
+
+    for (let i = 0; i < authUsers.length; i++) {
+      if (this.user.role == authUsers[i]) {
+        this.access = true;
+        console.log("si soy");
+        break;
+      } else {
+        this.access = false;
+        console.log("no soy");
+      }
     }
   }
 

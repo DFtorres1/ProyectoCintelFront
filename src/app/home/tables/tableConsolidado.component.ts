@@ -4,6 +4,7 @@ import { Chequeo } from "../../core/models/tables.models/listaDeChequeo.model";
 import { Consolidado } from "../../core/models/tables.models/consolidado.model";
 import { TablesService } from "../shared/tableConsolidado.service";
 import { TablesServiceChequeo } from "../shared/tableChequeo.service";
+import { catchError } from "rxjs";
 
 /**
  *
@@ -331,13 +332,21 @@ export class TableConsolidado implements OnInit {
         agent: group.get("responsible").value,
       };
 
-      this.tableChequeoService.postListaDeChequeo(this.chequeos).subscribe();
-
-      this.tableService
+      try{
+        this.tableService
         .postConsolidadoGeneral(this.consolidados)
         .subscribe((consolidado: Consolidado[]) =>
           this.setCurrentTable(consolidado)
         );
+        console.log("Si pude");
+        
+      this.tableChequeoService.postListaDeChequeo(this.chequeos).subscribe();
+
+      } catch(e){
+        console.log(e);
+      }
+      
+
     } else {
       this.consolidados = {
         idCg: group.get("idCg").value,

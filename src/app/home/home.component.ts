@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   consolidado: Boolean = false;
   registro: Boolean = false;
   cssUrl: string;
+  cintelLogo = true;
 
   constructor(
     private storageService: StorageService,
@@ -27,7 +28,15 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.user = this.storageService.getCurrentUser();
 
-    if (this.user.role == ("Administrador" || "Lider" || "Gerente")) {
+    if (
+      this.user.role ==
+      ("Administrador" ||
+        "Lider" ||
+        "Gerente" ||
+        "administrador" ||
+        "lider" ||
+        "gerente")
+    ) {
       this.access = true;
     } else {
       this.access = false;
@@ -44,30 +53,33 @@ export class HomeComponent implements OnInit {
 
   showChequeo() {
     (this.chequeo = true),
-    (this.consolidado = false),
-    (this.tac = false),
-    (this.registro = false);
+      (this.consolidado = false),
+      (this.tac = false),
+      (this.registro = false),
+      (this.cintelLogo = false);
   }
 
   showConsolidado() {
     (this.chequeo = false),
-    (this.consolidado = true),
-    (this.tac = false),
-    (this.registro = false);
-  }
-  
-  showTAC() {
-    (this.chequeo = false),
-    (this.consolidado = false),
-    (this.tac = true),
-    (this.registro = false);
-  }
-  
-  showRegistro() {
-    (this.chequeo = false),
-    (this.consolidado = false),
-    (this.tac = false),
-    (this.registro = true);
+      (this.consolidado = true),
+      (this.tac = false),
+      (this.registro = false),
+      (this.cintelLogo = false);
   }
 
+  showTAC() {
+    (this.chequeo = false),
+      (this.consolidado = false),
+      (this.tac = true),
+      (this.registro = false),
+      (this.cintelLogo = false);
+  }
+
+  showRegistro() {
+    (this.chequeo = false),
+      (this.consolidado = false),
+      (this.tac = false),
+      (this.registro = true),
+      (this.cintelLogo = false);
+  }
 }

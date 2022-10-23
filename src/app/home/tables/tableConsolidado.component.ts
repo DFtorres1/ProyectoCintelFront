@@ -332,20 +332,20 @@ export class TableConsolidado implements OnInit {
         agent: group.get("responsible").value,
       };
 
-      try{
+      try {
         this.tableService
-        .postConsolidadoGeneral(this.consolidados)
-        .subscribe((consolidado: Consolidado[]) =>
-          this.setCurrentTable(consolidado)
-        );
-        console.log("Si pude");
-        
-      this.tableChequeoService.postListaDeChequeo(this.chequeos).subscribe();
+          .postConsolidadoGeneral(this.consolidados)
+          .subscribe((consolidado: Consolidado[]) => {
+            this.setCurrentTable(consolidado)
+          }
+          );
 
-      } catch(e){
+        this.tableChequeoService.postListaDeChequeo(this.chequeos).subscribe();
+
+      } catch (e) {
         console.log(e);
       }
-      
+
 
     } else {
       this.consolidados = {

@@ -40,11 +40,9 @@ export class HomeComponent implements OnInit {
     for (let i = 0; i < authUsers.length; i++) {
       if (this.user.role == authUsers[i]) {
         this.access = true;
-        console.log("si soy");
         break;
       } else {
         this.access = false;
-        console.log("no soy");
       }
     }
   }

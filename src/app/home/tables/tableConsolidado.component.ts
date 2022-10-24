@@ -338,7 +338,6 @@ export class TableConsolidado implements OnInit {
         .subscribe((consolidado: Consolidado[]) =>
           this.setCurrentTable(consolidado)
         );
-        console.log("Si pude");
         
       this.tableChequeoService.postListaDeChequeo(this.chequeos).subscribe();
 

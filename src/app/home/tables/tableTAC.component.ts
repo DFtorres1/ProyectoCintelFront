@@ -17,7 +17,7 @@ const Columns = [
   {
     name: "Fecha de Consulta",
     formControl: "queryDate",
-    type: "text",
+    type: "date",
   },
   {
     name: "Responsable",
@@ -228,8 +228,9 @@ export class TableTAC implements OnInit {
 
   doneRow(group: UntypedFormGroup) {
     var tactmp = JSON.stringify(group.get("tac").value);
+    var responsibletmp = JSON.stringify(group.get("responsible").value);
 
-    if (tactmp.length - 2 == 8) {
+    if (tactmp.length - 2 == 8 && responsibletmp.length - 2 == 3) {
       group.get("isEditable").setValue(false);
       this.validform = true;
       if (group.get("new").value) {
@@ -239,9 +240,9 @@ export class TableTAC implements OnInit {
           tac: group.get("tac").value,
           brand: group.get("brand").value,
           model: group.get("model").value,
-          gsmabrand: group.get("gsmabrand").value,
-          gsmamodel: group.get("gsmamodel").value,
-          crctacapp: group.get("crctacapp").value,
+          gsmabrand: group.get("gsmabrand").value === ("true" || "1"),
+          gsmamodel: group.get("gsmamodel").value === ("true" || "1"),
+          crctacapp: group.get("crctacapp").value === ("true" || "1"),
           brand_C: group.get("brand_C").value,
           model_C: group.get("model_C").value,
           manufacturer: group.get("manufacturer").value,
@@ -265,9 +266,9 @@ export class TableTAC implements OnInit {
           tac: group.get("tac").value,
           brand: group.get("brand").value,
           model: group.get("model").value,
-          gsmabrand: group.get("gsmabrand").value,
-          gsmamodel: group.get("gsmamodel").value,
-          crctacapp: group.get("crctacapp").value,
+          gsmabrand: group.get("gsmabrand").value === ("true" || "1"),
+          gsmamodel: group.get("gsmamodel").value === ("true" || "1"),
+          crctacapp: group.get("crctacapp").value === ("true" || "1"),
           brand_C: group.get("brand_C").value,
           model_C: group.get("model_C").value,
           manufacturer: group.get("manufacturer").value,

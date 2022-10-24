@@ -338,8 +338,6 @@ export class TableChequeo implements OnInit {
     var settledtmp = JSON.stringify(group.get("settled").value);
     var tactmp = JSON.stringify(group.get("tac").value);
 
-    if (!group.get("new").value) {
-    }
     if (settledtmp.length - 2 == 10 && tactmp.length - 2 == 8) {
       group.get("isEditable").setValue(false);
       this.validform = true;
@@ -438,6 +436,7 @@ export class TableChequeo implements OnInit {
           .subscribe((check: Chequeo[]) => this.setCurrentTable(check));
       } else {
         this.chequeos = {
+          idLc: group.get("idLc").value,
           settled: group.get("settled").value,
           entryDate: group.get("entryDate").value,
           userType: group.get("userType").value,
